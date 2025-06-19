@@ -9,6 +9,6 @@ public class task01 {
         int b = rand.nextInt(100);
         int c = rand.nextInt(100);
         int d = rand.nextInt(100);
-        System.out.println(a+"   "+b+"   "+c+"   "+d+"   ");
+        System.out.println(a+"   "+b+"   "+c+"   "+d);
     }
 }

@@ -14,7 +14,6 @@ public class task02 {
                 System.out.print("Победил Вася!" + " " + vasya + ">" + petya);
             } else {
                 System.out.print("Победил Петя!" + " " + petya + ">" + vasya);
-
             }
         }
     }

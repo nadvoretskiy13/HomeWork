@@ -15,21 +15,22 @@ package homework03;
 6. Дополнительно. Задавать параметры класса Телевизор с клавиатуры
 или случайным числом. */
 
-
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
         // конструктор по-умолчанию
-        Television myTelevision = new Television("Philips",70 ,"3840x2160",2025);
+
+        Television myTelevision = new Television ("Philips",70 ,"3840x2160");
         System.out.println(myTelevision);
 
-        Television sTelevision = new Television("Samsung",65,"3840x2160");
+        Television sTelevision = new Television ("Samsung",65);
         System.out.println(sTelevision);
 
-        Television xTelevision = new Television("Xiaomi", 55);
-        System.out.println(xTelevision);
+        Country mainCountry = new Country("China", 2023);
+        Television televisionWithCountry = new Television ("Xiaomi",55 ,"3840x2160", mainCountry);
+        System.out.println(televisionWithCountry);
 
     }
 }

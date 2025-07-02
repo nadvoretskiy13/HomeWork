@@ -20,16 +20,21 @@ import java.util.Scanner;
 public class App {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        // конструктор по-умолчанию
+        String model = scan.nextLine();
+        int screenSize = scan.nextInt();
+        int screenResolution = scan.nextInt();
+        int productionYear = scan.nextInt();
 
-        Television myTelevision = new Television ("Philips",70 ,"3840x2160");
+        // конструктор по-умолчанию
+        Country mainCountry = new Country("China");
+
+        Television myTelevision = new Television(model, screenSize, screenResolution, productionYear, mainCountry);
         System.out.println(myTelevision);
 
-        Television sTelevision = new Television ("Samsung",65);
+        Television sTelevision = new Television(model, screenSize, productionYear);
         System.out.println(sTelevision);
 
-        Country mainCountry = new Country("China", 2023);
-        Television televisionWithCountry = new Television ("Xiaomi",55 ,"3840x2160", mainCountry);
+        Television televisionWithCountry = new Television(model, screenSize);
         System.out.println(televisionWithCountry);
 
     }

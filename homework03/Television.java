@@ -7,7 +7,7 @@ public class Television {
     private Country country;
     private int productionYear;
 
-    public Television(String model, int screenSize, int screenResolution, int productionYear, Country country) {
+    public Television(String model, Country country, int screenSize, int screenResolution, int productionYear) {
         this.model = model;
         this.screenSize = screenSize;
         this.productionYear = productionYear;
@@ -26,10 +26,10 @@ public class Television {
     public String toString() {
         return "Телевизор{" +
                 "Модель " + model + '\'' +
+                ", Made " + country + '\'' +
                 ", Диагональ " + screenSize + '\'' +
                 ", Разрешение экрана " + screenResolution + '\'' +
                 ", Год начала производства " + productionYear + '\'' +
-                ", Made " + country + '\'' +
                 '}';
     }
     public Country getCountry() {

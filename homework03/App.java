@@ -21,14 +21,17 @@ public class App {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         String model = scan.nextLine();
+        String country = scan.nextLine();
         int screenSize = scan.nextInt();
         int screenResolution = scan.nextInt();
         int productionYear = scan.nextInt();
 
-        // конструктор по-умолчанию
-        Country mainCountry = new Country("China");
 
-        Television myTelevision = new Television(model, screenSize, screenResolution, productionYear, mainCountry);
+        // конструктор по-умолчанию
+        Country mainCountry = new Country(country);
+
+
+        Television myTelevision = new Television(model, mainCountry, screenSize, screenResolution, productionYear);
         System.out.println(myTelevision);
 
         Television sTelevision = new Television(model, screenSize, productionYear);

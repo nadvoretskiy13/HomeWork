@@ -11,6 +11,7 @@ public class Country {
     public void setMadeIn(String madeIn) {
         this.madeIn = madeIn;
     }
+    @Override
     public String toString() {
         return "in {" +
                 " " + madeIn + '\'' +

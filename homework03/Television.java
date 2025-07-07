@@ -23,6 +23,7 @@ public class Television {
         this.model = model;
         this.screenSize = screenSize;
     }
+    @Override
     public String toString() {
         return "Телевизор{" +
                 "Модель " + model + '\'' +

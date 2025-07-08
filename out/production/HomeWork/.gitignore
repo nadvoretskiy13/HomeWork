@@ -1,1 +1,6 @@
-.idea
+*.iml
+/HomeWork.iml
+/out/
+/out/production/
+/out/production/HomeWork/
+/.idea/

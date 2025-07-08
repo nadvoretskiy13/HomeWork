@@ -42,8 +42,7 @@ public class App {
         // конструктор по-умолчанию
         Country mainCountry = new Country(country);
 
-
-        Television myTelevision = new Television(model, mainCountry, screenSize, screenResolution, productionYear);
+        Television myTelevision = new Television(model, screenSize, screenResolution, productionYear, channalNumber, volumeLVL, power, mainCountry);
         System.out.println(myTelevision);
 
         Television sTelevision = new Television(model, screenSize, productionYear);

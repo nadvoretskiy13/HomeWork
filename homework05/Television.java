@@ -8,7 +8,7 @@ public class Television {
     private int productionYear;
     private Integer chanelNumber;
     private Integer volumeLVL;
-    private
+    private Boolean  power;
 
     public Television(String model, Country country, int screenSize, int screenResolution, int productionYear) {
         this.model = model;

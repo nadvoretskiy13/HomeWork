@@ -1,4 +1,4 @@
-package homework03;
+package homework05;
 
 public class Television {
     private String model;
@@ -6,6 +6,9 @@ public class Television {
     private int screenResolution;
     private Country country;
     private int productionYear;
+    private Integer chanelNumber;
+    private Integer volumeLVL;
+    private
 
     public Television(String model, Country country, int screenSize, int screenResolution, int productionYear) {
         this.model = model;

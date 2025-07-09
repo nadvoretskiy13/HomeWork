@@ -1,4 +1,4 @@
-package homework03;
+package homework05;
 
 public class Television {
     private String model;

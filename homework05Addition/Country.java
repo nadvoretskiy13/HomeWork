@@ -1,4 +1,4 @@
-package homework03;
+package homework05Addition;
 
 public class Country {
     private String madeIn;

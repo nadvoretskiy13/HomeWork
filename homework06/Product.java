@@ -6,27 +6,26 @@ public class Product {
 
     private int bread;
     private int butter;
-    private int Coffe;
     private int cake;
     private int milk;
+    private int instCoffe;
 
-    public int getBread() {
-        return bread;
-    }
-    public void setBread(int bread) {
+    public Product(int bread, int butter, int coffe, int cake, int milk) {
         this.bread = bread;
+        this.butter = butter;
+        this.cake = cake;
+        this.milk = milk;
+        this.instCoffe = coffe;
     }
+    public int getBread() {
+        return bread;}
+    public void setBread(int bread) {
+        this.bread = bread;}
     public int getButter() {
         return butter;
     }
     public void setButter(int butter) {
         this.butter = butter;
-    }
-    public int getCoffe() {
-        return Coffe;
-    }
-    public void setCoffe(int coffe) {
-        Coffe = coffe;
     }
     public int getCake() {
         return cake;
@@ -40,12 +39,18 @@ public class Product {
     public void setMilk(int milk) {
         this.milk = milk;
     }
+    public int getInstCoffe() {
+        return instCoffe;
+    }
+    public void setInstCoffe(int instCoffe) {
+        this.instCoffe = instCoffe;
+    }
     @Override
     public String toString() {
         return "Product{" +
                 "Хлеб=" + bread +
                 ", Масло=" + butter +
-                ", Кофе=" + Coffe +
+                ", Кофе=" + instCoffe +
                 ", Торт=" + cake +
                 ", Молоко=" + milk +
                 '}';
@@ -54,10 +59,10 @@ public class Product {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return bread == product.bread && butter == product.butter && Coffe == product.Coffe && cake == product.cake && milk == product.milk;
+        return bread == product.bread && butter == product.butter && instCoffe == product.instCoffe && cake == product.cake && milk == product.milk;
     }
     @Override
     public int hashCode() {
-        return Objects.hash(bread, butter, Coffe, cake, milk);
+        return Objects.hash(bread, butter, instCoffe, cake, milk);
     }
 }

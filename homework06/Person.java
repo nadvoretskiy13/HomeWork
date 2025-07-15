@@ -1,13 +1,15 @@
 package homework06;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Person {
     private String name;
     private Long money;
-    private Product[] products = new Product[10];
+    private final Product[] products = new Product[10];
     public Person(String name, Long money, Product[] products) {
         this.setName(name);
         this.setMoney(money);
-        this.products = products;
     }
     public String getName() {
         return name;
@@ -29,5 +31,23 @@ public class Person {
         return products;
     }
     public void addProduct(Product products) {
+    }
+    @Override
+    public String toString() {
+        return "Person{" +
+                "Имя='" + name + '\'' +
+                ", Деньги=" + money +
+                ", Продукты=" + Arrays.toString(products) +
+                '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) && Objects.equals(money, person.money) && Objects.deepEquals(products, person.products);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, money, Arrays.hashCode(products));
     }
 }

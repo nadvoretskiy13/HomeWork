@@ -5,43 +5,56 @@ import java.util.Objects;
 
 public class Person {
     private String name;
-    private Long money;
-    private final Product[] products = new Product[10];
-    public Person(String name, Long money, Product[] products) {
+
+    private Double money;
+
+    private  Product[] products = new Product[0];
+
+    private int arrayIndex = 0;
+
+    public Person(String name, Double money) {
         this.setName(name);
         this.setMoney(money);
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         if (!name.isEmpty()) {
             this.name = name;
         }
     }
-    public Long getMoney() {
+
+    public Double getMoney() {
         return money;
     }
-    public void setMoney(Long money) {
+
+    public void setMoney(Double money) {
         if (money >= 0) {
             this.money = money;
         }
     }
+
     public Product[] getProducts() {
         return products;
     }
-    public void addProduct(Product products) {
+
+    public void addProduct(Product product) {
+        if (this.money >= product.getPrice()) {
+            products = new Product[]{product};
+            this.money = this.money - product.getPrice();
+            arrayIndex++;
+        } else {
+            System.out.println(this.name + " Не может себе позволить купить " + product.getName());
+
+        }
     }
-    @Override
-    public String toString() {
-        return "Person{" +
-                "Имя='" + name + '\'' +
-                ", Деньги=" + money +
-                ", Продукты=" + Arrays.toString(products) +
-                '}';
-    }
+
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
         return Objects.equals(name, person.name) && Objects.equals(money, person.money) && Objects.deepEquals(products, person.products);
@@ -49,5 +62,15 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(name, money, Arrays.hashCode(products));
+
+    }
+
+    @Override
+    public String toString() {
+        if (products.length == 0) {
+            return name + " ничего не купил! ";
+        } else {
+            return name + " купил: " + Arrays.toString(products);
+        }
     }
 }

@@ -4,65 +4,45 @@ import java.util.Objects;
 
 public class Product {
 
-    private int bread;
-    private int butter;
-    private int cake;
-    private int milk;
-    private int instCoffe;
+    private String name;
 
-    public Product(int bread, int butter, int coffe, int cake, int milk) {
-        this.bread = bread;
-        this.butter = butter;
-        this.cake = cake;
-        this.milk = milk;
-        this.instCoffe = coffe;
+    private Double price;
+
+    public Product(String name, Double price) {
+        this.price = price;
+        this.name = name;
     }
-    public int getBread() {
-        return bread;}
-    public void setBread(int bread) {
-        this.bread = bread;}
-    public int getButter() {
-        return butter;
+
+    public String getName() {
+        return name;
     }
-    public void setButter(int butter) {
-        this.butter = butter;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public int getCake() {
-        return cake;
+
+    public Double getPrice() {
+        return price;
     }
-    public void setCake(int cake) {
-        this.cake = cake;
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
-    public int getMilk() {
-        return milk;
-    }
-    public void setMilk(int milk) {
-        this.milk = milk;
-    }
-    public int getInstCoffe() {
-        return instCoffe;
-    }
-    public void setInstCoffe(int instCoffe) {
-        this.instCoffe = instCoffe;
-    }
-    @Override
-    public String toString() {
-        return "Product{" +
-                "Хлеб=" + bread +
-                ", Масло=" + butter +
-                ", Кофе=" + instCoffe +
-                ", Торт=" + cake +
-                ", Молоко=" + milk +
-                '}';
-    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return bread == product.bread && butter == product.butter && instCoffe == product.instCoffe && cake == product.cake && milk == product.milk;
+        return Objects.equals(name, product.name) && Objects.equals(price, product.price);
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(bread, butter, instCoffe, cake, milk);
+        return Objects.hash(name, price);
+    }
+
+    @Override
+    public String toString() {
+        return name + " цена: " + price;
     }
 }

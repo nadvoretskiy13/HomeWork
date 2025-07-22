@@ -10,7 +10,6 @@ public class Person {
 
     private  Product[] products = new Product[0];
 
-    private int arrayIndex = 0;
 
     public Person(String name, Double money) {
         this.setName(name);
@@ -43,9 +42,9 @@ public class Person {
 
     public void addProduct(Product product) {
         if (this.money >= product.getPrice()) {
-            products = new Product[]{product};
+            products = Arrays.copyOf(products, products.length + 1);
+            products[products.length - 1] = product;
             this.money = this.money - product.getPrice();
-            arrayIndex++;
         } else {
             System.out.println(this.name + " Не может себе позволить купить " + product.getName());
 
@@ -70,7 +69,7 @@ public class Person {
         if (products.length == 0) {
             return name + " ничего не купил! ";
         } else {
-            return name + " купил: " + Arrays.toString(products);
+            return name + " купил: " + Arrays.toString(products) + " - осталось денег " + this.money;
         }
     }
 }

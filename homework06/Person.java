@@ -34,8 +34,6 @@ public class Person {
     public void setMoney(Double money) {
         if (money >= 0) {
             this.money = money;
-        } else {
-            System.out.println("Деньги не могут быть отрицательным числом");
         }
     }
     public Product[] getProducts() {
@@ -49,7 +47,6 @@ public class Person {
             System.out.println(this.name + " купил " + product.getName());
         } else {
             System.out.println(this.name + " Не может себе позволить купить " + product.getName());
-
         }
     }
     @Override

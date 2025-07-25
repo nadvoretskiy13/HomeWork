@@ -2,55 +2,56 @@ package homework06;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Person {
     private String name;
-
     private Double money;
-
     private  Product[] products = new Product[0];
-
 
     public Person(String name, Double money) {
         this.setName(name);
         this.setMoney(money);
     }
-
+    public Person(String params) {
+        String[]  paramArray = params.split("=");
+        this.name = paramArray[0].trim();
+        this.money = Double.valueOf(paramArray[1].trim());
+    }
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         if (!name.isEmpty()) {
             this.name = name;
+        } else {
+            System.out.println("Имя не может быть пустым");
         }
     }
-
-    public Double getMoney() {
+    public double getMoney() {
         return money;
     }
-
     public void setMoney(Double money) {
         if (money >= 0) {
             this.money = money;
+        } else {
+            System.out.println("Деньги не могут быть отрицательным числом");
         }
     }
-
     public Product[] getProducts() {
         return products;
     }
-
     public void addProduct(Product product) {
         if (this.money >= product.getPrice()) {
             products = Arrays.copyOf(products, products.length + 1);
             products[products.length - 1] = product;
             this.money = this.money - product.getPrice();
+            System.out.println(this.name + " купил " + product.getName());
         } else {
             System.out.println(this.name + " Не может себе позволить купить " + product.getName());
 
         }
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,13 +64,14 @@ public class Person {
         return Objects.hash(name, money, Arrays.hashCode(products));
 
     }
-
     @Override
     public String toString() {
         if (products.length == 0) {
             return name + " ничего не купил! ";
         } else {
-            return name + " купил: " + Arrays.toString(products) + " - осталось денег " + this.money;
+            return name + " купил: " + Arrays.stream(products)
+                    .map(Product::getName)
+                    .collect(Collectors.joining(", "));
         }
     }
 }

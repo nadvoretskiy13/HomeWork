@@ -1,23 +1,34 @@
 package homework06;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Person {
     private String name;
-    private int amountMoney;
-    private final ArrayList<Product> products = new ArrayList<>();
+    private double money;
+    private Product[] products = new Product[0];
+    //поля
 
-    public Person(String name, int amountMoney) {
-        setName(name);
-        setAmountMoney(amountMoney);
+
+
+
+    public Person(String name, double money) {
+        this.setName(name);
+        this.setMoney(money);
     }
+
+    public Person(String params) {
+        String[] paramArray = params.split("=");
+        this.name = paramArray[0].trim();
+        this.money = Double.valueOf(paramArray[1].trim());
+    }
+    // конструктор
+
 
     public String getName() {
+
         return name;
     }
-
     public void setName(String name) {
         if (!name.isEmpty()) {
             this.name = name;
@@ -26,55 +37,54 @@ public class Person {
         }
     }
 
-    public int getAmountMoney() {
-        return amountMoney;
-    }
 
-    public void setAmountMoney(int amountMoney) {
-        if (amountMoney >= 0) {
-            this.amountMoney = amountMoney;
+
+    public double getMoney() {
+
+        return money;
+    }
+    public void setMoney(double money) {
+        if (money >= 0) {
+            this.money = money;
         } else {
-            System.out.println("Деньги не могут быть отрицательным числом");
+            System.out.println("Деньги не могут быть отрицательными");
         }
     }
 
-    public List<Product> getProducts() {
+    public Product[] getProducts() {
+
         return products;
     }
 
-    public void addProduct(Product product) {
-        if (getAmountMoney() >= product.getProductPrice()) {
-            this.products.add(product);
-            setAmountMoney(getAmountMoney() - product.getProductPrice());
-            System.out.println(getName() + " купил(а) " + product.getProductName());
-        } else {
-            System.out.println(getName() + " не может позволить себе купить " + product.getProductName());
+    public String addProducts(Product product) {
+        if (this.money >= product.getPrice()) {
+            products = Arrays.copyOf(products, products.length + 1);
+            products[products.length - 1] = product;
+            this.money = this.money - product.getPrice();
         }
+        return this.name + " купил(а) " + product.getNameProduct();
+    }
+
+    @Override
+    public String toString() {
+        if (products.length == 0) {
+            return name + " - Ничего не куплено";
+        }
+        return name + " - " + Arrays.stream(products)
+                .map(Product::getNameProduct)
+                .collect(Collectors.joining(", "));
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-
         Person person = (Person) o;
-        return amountMoney == person.amountMoney && Objects.equals(name, person.name) && Objects.equals(products, person.products);
+        return Double.compare(money, person.money) == 0 && Objects.equals(name, person.name) && Objects.deepEquals(products, person.products);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(name);
-        result = 31 * result + amountMoney;
-        result = 31 * result + Objects.hashCode(products);
-        return result;
-    }
 
-    @Override
-    public String toString() {
-        if (products.isEmpty()) {
-            return name + " - Ничего не куплено";
-        } else {
-            return name + " - " + products;
-        }
+        return Objects.hash(name, money, Arrays.hashCode(products));
     }
 }
-

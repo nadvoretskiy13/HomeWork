@@ -3,56 +3,62 @@ package homework06;
 import java.util.Objects;
 
 public class Product {
-    private String productName;
-    private int productPrice;
+    private String nameProduct;
+    private double price;
 
-    public Product(String productName, int productPrice) {
-        setProductName(productName);
-        setProductPrice(productPrice);
+
+
+    public Product(String nameProduct, double price) {
+        this.nameProduct = nameProduct;
+        this.price = price;
     }
 
-    public String getProductName() {
-        return productName;
+    public Product(String paramss) {
+        String[] paramssArray = paramss.split("=");
+        this.nameProduct = paramssArray[0].trim();
+        this.price = Double.valueOf(paramssArray[1].trim());
     }
 
-    public void setProductName(String productName) {
-        if (!productName.isEmpty()) {
-            this.productName = productName;
+    public String getNameProduct() {
+        return nameProduct;
+    }
+    public void setNameProduct(String nameProduct) {
+        if (!nameProduct.isEmpty()) {
+            this.nameProduct = nameProduct;
         } else {
-            System.out.println("Название товара не может быть пустым");
+            System.out.println("Название продукта не может быть пустым");
         }
     }
 
-    public int getProductPrice() {
-        return productPrice;
+    public double getPrice() {
+        return price;
     }
-
-    public void setProductPrice(int productPrice) {
-        if (productPrice >= 0) {
-            this.productPrice = productPrice;
+    public void setPrice(double price) {
+        if (price >= 0) {
+            this.price = price;
         } else {
-            System.out.println("Цена товара не может быть меньше нуля");
+            System.out.println("Стоимость продукта не может быть отрицательной");
         }
     }
+
+
+
 
     @Override
     public String toString() {
-        return productName;
+        return nameProduct;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-
         Product product = (Product) o;
-        return productPrice == product.productPrice && Objects.equals(productName, product.productName);
+        return Double.compare(price, product.price) == 0 && Objects.equals(nameProduct, product.nameProduct);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hashCode(productName);
-        result = 31 * result + productPrice;
-        return result;
+        return Objects.hash(nameProduct, price);
     }
 }
-

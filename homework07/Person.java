@@ -1,4 +1,6 @@
-package homework06;
+package homework07;
+
+import homework06.Product;
 
 import java.util.Arrays;
 import java.util.Objects;

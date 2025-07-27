@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
+        DiscountProduct cake = new DiscountProduct("Торт", 800.15, 19.985, true);
+        DiscountProduct Coffee = new DiscountProduct("Кофе растворимый", 432.5, 50.8, true);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Введите данные о покупателях: ");
         String[] personsArray = scanner.nextLine().split(";");

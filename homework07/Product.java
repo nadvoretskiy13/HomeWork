@@ -3,16 +3,6 @@ package homework07;
 import java.util.Objects;
 
 public class Product {
-    public static boolean isNumber(String nameProduct) {
-        try {
-            Integer.parseInt(nameProduct);
-        } catch (Exception e) {
-            return false;
-        }
-        System.out.println("Недопустимое имя продукта!");
-        return true;
-    }
-
     private String nameProduct;
     private double price;
 

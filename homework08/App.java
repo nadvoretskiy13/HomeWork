@@ -9,15 +9,23 @@ public class App {
     public static void main(String[] args) {
         String output = "";
 
+        try (BufferedReader bufferedReader =  new BufferedReader (new FileReader("input.txt"));
+             BufferedWriter bufferedWriter =  new BufferedWriter (new FileWriter("output.txt"))) {
+            bufferedReader.readLine();
+            bufferedWriter.write("person.addProducts(product)" + "\n");
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите данные о покупателях: ");
+       // System.out.println("Введите данные о покупателях: ");
         String[] personsArray = scanner.nextLine().split(";");
         Person[] people = new Person[personsArray.length];
         for (int i = 0; i < personsArray.length; i++) {
             Person p = new Person(personsArray[i]);
             people[i] = p;
         }
-        System.out.println("Введите данные о продуктах: ");
+     //  System.out.println("Введите данные о продуктах: ");
         String[] productArray = scanner.nextLine().split(";");
         Product[] productss = new Product[productArray.length];
         for (int i = 0; i < productArray.length; i++) {
@@ -25,7 +33,7 @@ public class App {
             productss[i] = pp;
         }
         List<String> purchaseLog = new ArrayList<>();
-        System.out.println("Введите имя покупателя и товар");
+       // System.out.println("Введите имя покупателя и товар");
         String line = scanner.nextLine();
         while (!line.equalsIgnoreCase("END")) {
             String[] input = line.split("-");
@@ -54,13 +62,6 @@ public class App {
         for (Person person : people) {
             System.out.println(person);
 
-            try (BufferedReader bufferedReader =  new BufferedReader (new FileReader("input.txt"));
-                 BufferedWriter bufferedWriter =  new BufferedWriter (new FileWriter("output.txt"))) {
-                bufferedReader.readLine();
-                bufferedWriter.write("person.addProducts(product)" + "\n");
-            } catch (IOException e){
-                throw new RuntimeException(e);
-            }
         }
     }
 }

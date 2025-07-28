@@ -1,7 +1,5 @@
 package homework08;
 
-import homework06.Product;
-
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -9,7 +7,7 @@ import java.util.stream.Collectors;
 public class Person {
     private String name;
     private double money;
-    private homework06.Product[] products = new homework06.Product[0];
+    private Product[] products = new Product[0];
     //поля
 
 
@@ -54,12 +52,12 @@ public class Person {
         }
     }
 
-    public homework06.Product[] getProducts() {
+    public Product[] getProducts() {
 
         return products;
     }
 
-    public String addProducts(homework06.Product product) {
+    public String addProducts(Product product) {
         if (this.money >= product.getPrice()) {
             products = Arrays.copyOf(products, products.length + 1);
             products[products.length - 1] = product;

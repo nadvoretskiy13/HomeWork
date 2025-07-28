@@ -4,52 +4,59 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) {
         BufferedReader reader = null;
         BufferedWriter writer = null;
 
         try {
-            // Открываем файл для чтения
             reader = new BufferedReader(new FileReader("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt"));
-            // Открываем файл для записи
             writer = new BufferedWriter(new FileWriter("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt"));
 
-            System.out.println("Чтение данных о покупателях...");
+            // Читаем покупателей
             String personsLine = reader.readLine();
             String[] personsArray = personsLine.split(";");
-            Person[] people = new Person[personsArray.length];
+            List<Person> people = new ArrayList<>();
 
-            for (int i = 0; i < personsArray.length; i++) {
-                Person p = new Person(personsArray[i]);
-                people[i] = p;
+            for (String personData : personsArray) {
+                String[] parts = personData.split("=");
+                String name = parts[0].trim();
+                double balance = Double.parseDouble(parts[1].trim());
+                people.add(new Person(name, balance));
             }
 
-            System.out.println("Чтение данных о продуктах...");
+            // Читаем продукты
             String productsLine = reader.readLine();
             String[] productArray = productsLine.split(";");
-            Product[] productss = new Product[productArray.length];
+            List<Product> products = new ArrayList<>();
 
-            for (int i = 0; i < productArray.length; i++) {
-                Product pp = new Product(productArray[i]);
-                productss[i] = pp;
+            for (String productData : productArray) {
+                String[] parts = productData.split("=");
+                String name = parts[0].trim();
+                double price = Double.parseDouble(parts[1].trim());
+                products.add(new Product(name, price));
             }
 
+            // Читаем покупки
             List<String> purchaseLog = new ArrayList<>();
-            System.out.println("Чтение покупок...");
 
             String line;
             while ((line = reader.readLine()) != null && !line.equalsIgnoreCase("END")) {
-                String[] input = line.split("-");
+                String[] input = line.split(" ");
+
                 if (input.length == 2) {
                     String personName = input[0].trim();
                     String productName = input[1].trim();
 
                     for (Person person : people) {
                         if (person.getName().equals(personName)) {
-                            for (Product product : productss) {
-                                if (product.getNameProduct().equals(productName)) {
-                                    String resultMessage = person.addProducts(product);
+                            for (Product product : products) {
+                                if (product.getName().equals(productName)) {
+                                    String resultMessage = person.addProduct(product);
                                     purchaseLog.add(resultMessage);
                                     break;
                                 }
@@ -60,7 +67,7 @@ public class App {
                 }
             }
 
-            // Записываем результаты в output.txt
+            // Записываем результаты
             for (String message : purchaseLog) {
                 writer.write(message + "\n");
             }
@@ -74,12 +81,8 @@ public class App {
             System.err.println("Ошибка при работе с файлами: " + e.getMessage());
         } finally {
             try {
-                if (reader != null) {
-                    reader.close();
-                }
-                if (writer != null) {
-                    writer.close();
-                }
+                if (reader != null) reader.close();
+                if (writer != null) writer.close();
             } catch (IOException e) {
                 System.err.println("Ошибка при закрытии файлов: " + e.getMessage());
             }

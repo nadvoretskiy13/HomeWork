@@ -1,64 +1,48 @@
 package homework08;
 
-import java.util.Objects;
 
 public class Product {
-    private String nameProduct;
-    private double price;
+    // Приватные поля класса
+    private String name;    // название продукта
+    private double price;   // цена продукта
 
-
-
-    public Product(String nameProduct, double price) {
-        this.nameProduct = nameProduct;
+    // Конструктор класса
+    public Product(String name, double price) {
+        this.name = name;
         this.price = price;
     }
 
-    public Product(String paramss) {
-        String[] paramssArray = paramss.split("=");
-        this.nameProduct = paramssArray[0].trim();
-        this.price = Double.valueOf(paramssArray[1].trim());
+    // Геттер для получения названия
+    public String getName() {
+        return name;
     }
 
-    public String getNameProduct() {
-        return nameProduct;
-    }
-    public void setNameProduct(String nameProduct) {
-        if (!nameProduct.isEmpty()) {
-            this.nameProduct = nameProduct;
-        } else {
-            System.out.println("Название продукта не может быть пустым");
-        }
-    }
-
+    // Геттер для получения цены
     public double getPrice() {
         return price;
     }
-    public void setPrice(double price) {
-        if (price >= 0) {
-            this.price = price;
-        } else {
-            System.out.println("Стоимость продукта не может быть отрицательной");
-        }
-    }
 
-
-
-
+    // Метод для сравнения объектов Product
     @Override
-    public String toString() {
-        return nameProduct;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Product product = (Product) obj;
+        return Double.compare(price, product.price) == 0 &&
+                name.equals(product.name);
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Double.compare(price, product.price) == 0 && Objects.equals(nameProduct, product.nameProduct);
-    }
-
+    // Метод для получения хэш-кода
     @Override
     public int hashCode() {
-        return Objects.hash(nameProduct, price);
+        int result = name.hashCode();
+        result = 31 * result + Double.hashCode(price);
+        return result;
+    }
+
+    // Метод для получения строкового представления
+    @Override
+    public String toString() {
+        return name + " (" + price + " руб.)";
     }
 }

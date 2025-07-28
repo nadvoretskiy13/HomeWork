@@ -1,91 +1,79 @@
 package homework08;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Person {
-    private String name;
-    private double money;
-    private Product[] products = new Product[0];
-    //поля
+    // Приватные поля класса
+    private String name;          // имя покупателя
+    private double balance;       // баланс покупателя
+    private List<Product> purchasedProducts;  // список купленных товаров
 
-
-
-
-    public Person(String name, double money) {
-        this.setName(name);
-        this.setMoney(money);
+    // Конструктор класса
+    public Person(String name, double balance) {
+        this.name = name;
+        this.balance = balance;
+        this.purchasedProducts = new ArrayList<>();
     }
 
-    public Person(String params) {
-        String[] paramArray = params.split("=");
-        this.name = paramArray[0].trim();
-        this.money = Double.valueOf(paramArray[1].trim());
-    }
-    // конструктор
-
-
+    // Геттер для получения имени
     public String getName() {
-
         return name;
     }
-    public void setName(String name) {
-        if (!name.isEmpty()) {
-            this.name = name;
+
+    // Геттер для получения баланса
+    public double getBalance() {
+        return balance;
+    }
+
+    // Сеттер для установки баланса
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    // Метод добавления продукта
+    public String addProduct(Product product) {
+        if (balance >= product.getPrice()) {
+            balance -= product.getPrice();  // уменьшаем баланс
+            purchasedProducts.add(product); // добавляем продукт в список
+            return getName() + " купил " + product.getName();
         } else {
-            System.out.println("Имя не может быть пустым");
+            return getName() + " не может позволить себе " + product.getName();
         }
     }
 
-
-
-    public double getMoney() {
-
-        return money;
-    }
-    public void setMoney(double money) {
-        if (money >= 0) {
-            this.money = money;
-        } else {
-            System.out.println("Деньги не могут быть отрицательными");
-        }
-    }
-
-    public Product[] getProducts() {
-
-        return products;
-    }
-
-    public String addProducts(Product product) {
-        if (this.money >= product.getPrice()) {
-            products = Arrays.copyOf(products, products.length + 1);
-            products[products.length - 1] = product;
-            this.money = this.money - product.getPrice();
-        }
-        return this.name + " купил(а) " + product.getNameProduct();
-    }
-
+    // Метод для получения строкового представления объекта
     @Override
     public String toString() {
-        if (products.length == 0) {
-            return name + " - Ничего не куплено";
+        if (purchasedProducts.isEmpty()) {
+            return getName() + " - Ничего не куплено";
         }
-        return name + " - " + Arrays.stream(products)
-                .map(Product::getNameProduct)
-                .collect(Collectors.joining(", "));
+
+        StringBuilder sb = new StringBuilder(getName() + " - ");
+        for (int i = 0; i < purchasedProducts.size(); i++) {
+            sb.append(purchasedProducts.get(i).getName());
+            if (i < purchasedProducts.size() - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
 
+    // Метод для сравнения объектов Person
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Double.compare(money, person.money) == 0 && Objects.equals(name, person.name) && Objects.deepEquals(products, person.products);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person person = (Person) obj;
+        return Double.compare(balance, person.balance) == 0 &&
+                name.equals(person.name);
     }
 
+    // Метод для получения хэш-кода
     @Override
     public int hashCode() {
-
-        return Objects.hash(name, money, Arrays.hashCode(products));
+        int result = name.hashCode();
+        result = 31 * result + Double.hashCode(balance);
+        return result;
     }
 }

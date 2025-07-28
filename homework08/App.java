@@ -3,39 +3,48 @@ package homework08;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-// import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        String output = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt";
-        String input = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt";
+        BufferedReader reader = null;
+        BufferedWriter writer = null;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(input));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
-            writer.write("person.addProducts(product)" + "\n");
-            String line = reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line); // Обработка каждой строки
-            }
-            String[] personsArray = reader.readLine().split(";");
+        try {
+            // Открываем файл для чтения
+            reader = new BufferedReader(new FileReader("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt"));
+            // Открываем файл для записи
+            writer = new BufferedWriter(new FileWriter("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt"));
+
+            System.out.println("Чтение данных о покупателях...");
+            String personsLine = reader.readLine();
+            String[] personsArray = personsLine.split(";");
             Person[] people = new Person[personsArray.length];
+
             for (int i = 0; i < personsArray.length; i++) {
                 Person p = new Person(personsArray[i]);
                 people[i] = p;
             }
-            String[] productArray = reader.readLine().split(";");
+
+            System.out.println("Чтение данных о продуктах...");
+            String productsLine = reader.readLine();
+            String[] productArray = productsLine.split(";");
             Product[] productss = new Product[productArray.length];
+
             for (int i = 0; i < productArray.length; i++) {
                 Product pp = new Product(productArray[i]);
                 productss[i] = pp;
             }
+
             List<String> purchaseLog = new ArrayList<>();
-            while (!line.equalsIgnoreCase("END")) {
-                String[] resultss = line.split("-");
-                if (resultss.length == 2) {
-                    String personName = resultss[0].trim();
-                    String productName = resultss[1].trim();
+            System.out.println("Чтение покупок...");
+
+            String line;
+            while ((line = reader.readLine()) != null && !line.equalsIgnoreCase("END")) {
+                String[] input = line.split("-");
+                if (input.length == 2) {
+                    String personName = input[0].trim();
+                    String productName = input[1].trim();
+
                     for (Person person : people) {
                         if (person.getName().equals(personName)) {
                             for (Product product : productss) {
@@ -49,15 +58,31 @@ public class App {
                         }
                     }
                 }
-
             }
-            System.out.println();
+
+            // Записываем результаты в output.txt
+            for (String message : purchaseLog) {
+                writer.write(message + "\n");
+            }
+            writer.newLine();
+
             for (Person person : people) {
-                System.out.println(person);
-
+                writer.write(person.toString() + "\n");
             }
+
         } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла: " + e.getMessage());
-       }
+            System.err.println("Ошибка при работе с файлами: " + e.getMessage());
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+                if (writer != null) {
+                    writer.close();
+                }
+            } catch (IOException e) {
+                System.err.println("Ошибка при закрытии файлов: " + e.getMessage());
+            }
+        }
     }
 }

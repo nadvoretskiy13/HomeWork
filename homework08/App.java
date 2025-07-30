@@ -11,65 +11,56 @@ public class App {
             // Читаем покупателей
             String personsLine = reader.readLine();
             String[] personsArray = personsLine.split(";");
-            List<Person> people = new ArrayList<>();
-
-            for (String personData : personsArray) {
-                String[] parts = personData.split("=");
-                people.add(new Person(parts[0].trim(), Double.parseDouble(parts[1].trim())));
+            Person[] people = new Person[personsArray.length];
+            for (int i = 0; i < personsArray.length; i++) {
+                Person p = new Person(personsArray[i]);
+                people[i] = p;
             }
 
             // Читаем продукты
             String productsLine = reader.readLine();
             String[] productArray = productsLine.split(";");
-            List<Product> products = new ArrayList<>();
-
-            for (String productData : productArray) {
-                String[] parts = productData.split("=");
-                products.add(new Product(parts[0].trim(), Double.parseDouble(parts[1].trim())));
+            Product[] products = new Product[productArray.length];
+            for (int i = 0; i < productArray.length; i++) {
+                Product pp = new Product(productArray[i]);
+                products[i] = pp;
             }
 
-            // Создаем мапы для быстрого поиска
-            Map<String, Person> personMap = new HashMap<>();
-            for (Person person : people) {
-                personMap.put(person.getName(), person);
-            }
-
-            Map<String, Product> productMap = new HashMap<>();
-            for (Product product : products) {
-                productMap.put(product.getName(), product);
-            }
-
-            // Обрабатываем покупки
             List<String> purchaseLog = new ArrayList<>();
-            String line;
 
-            while ((line = reader.readLine()) != null && !line.equalsIgnoreCase("END")) {
-                String[] input = line.split(" ");
+            // Читаем покупки
+            String line = reader.readLine();
+            while (!line.equalsIgnoreCase("END")) {
+                String[] input = line.split("-");
                 if (input.length == 2) {
                     String personName = input[0].trim();
                     String productName = input[1].trim();
 
-                    Person person = personMap.get(personName);
-                    Product product = productMap.get(productName);
-
-                    if (person != null && product != null) {
-                        String result = person.addProduct(product);
-                        purchaseLog.add(result);
-                        writer.write(result + "\n");
+                    for (Person person : people) {
+                        if (person.getName().equals(personName)) {
+                            for (Product product : products) {
+                                if (product.getNameProduct().equals(productName)) {
+                                    String resultMessage = person.addProducts(product);
+                                    purchaseLog.add(resultMessage);
+                                    writer.write(resultMessage + "\n");
+                                    break;
+                                }
+                            }
+                            break;
+                        }
                     }
                 }
+                line = reader.readLine();
             }
 
-            // Добавляем пустую строку
-            writer.newLine();
-
             // Записываем итоговые списки покупок
+            writer.newLine();
             for (Person person : people) {
-                writer.write(person.getSummary() + "\n");
+                writer.write(person.toString() + "\n");
             }
 
         } catch (IOException e) {
-            System.err.println("Ошибка при работе с файлами: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

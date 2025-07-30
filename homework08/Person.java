@@ -1,88 +1,82 @@
 package homework08;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors; // Важно! Этот импорт нужен для Collectors
-import homework08.Product;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 public class Person {
     private String name;
     private double money;
-    private Product[] products = new Product[0];
+    private List<Product> basket;
 
-    // Конструкторы
+    // Конструктор
     public Person(String name, double money) {
-        this.setName(name);
-        this.setMoney(money);
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+        if (money < 0) {
+            throw new IllegalArgumentException("Деньги не могут быть отрицательными");
+        }
+        this.name = name;
+        this.money = money;
+        this.basket = new ArrayList<>();
     }
 
-    public Person(String params) {
-        String[] paramArray = params.split("=");
-        this.name = paramArray[0].trim();
-        this.money = Double.valueOf(paramArray[1].trim());
-    }
-
-    // Геттеры и сеттеры
+    // Геттеры
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        if (!name.isEmpty()) {
-            this.name = name;
-        } else {
-            System.out.println("Имя не может быть пустым");
-        }
     }
 
     public double getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
-        if (money >= 0) {
-            this.money = money;
+    public List<Product> getBasket() {
+        return new ArrayList<>(basket);
+    }
+
+    // Добавление продукта в корзину
+    public boolean addProductToBasket(Product product) {
+        if (money >= product.getPrice()) {
+            basket.add(product);
+            money -= product.getPrice();
+            return true;
+        }
+        return false;
+    }
+
+    // Печать корзины покупателя в файл
+    public void printBasketToFile(BufferedWriter writer) throws IOException {
+        if (basket.isEmpty()) {
+            writer.write(name + " - Ничего не куплено\n");
         } else {
-            System.out.println("Деньги не могут быть отрицательными");
+            writer.write(name + " - ");
+            for (int i = 0; i < basket.size(); i++) {
+                writer.write(basket.get(i).getName());
+                if (i < basket.size() - 1) {
+                    writer.write(", ");
+                }
+            }
+            writer.write("\n");
         }
-    }
-
-    public Product[] getProducts() {
-        return products;
-    }
-
-    // Метод добавления продукта
-    public String addProducts(Product product) {
-        if (this.money >= product.getPrice()) {
-            products = Arrays.copyOf(products, products.length + 1);
-            products[products.length - 1] = product;
-            this.money = this.money - product.getPrice();
-            return this.name + " купил(а) " + product.getNameProduct();
-        }
-        return this.name + " не может позволить себе " + product.getNameProduct();
     }
 
     @Override
     public String toString() {
-        if (products.length == 0) {
-            return name + " - Ничего не куплено";
-        }
-        return name + " - " + Arrays.stream(products)
-                .map(Product::getNameProduct)
-                .collect(Collectors.joining(", ")); // Здесь используется Collectors
+        return name + " = " + money;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Double.compare(money, person.money) == 0
-                && Objects.equals(name, person.name)
-                && Arrays.equals(products, person.products);
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Person person = (Person) obj;
+        return name.equals(person.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, money, Arrays.hashCode(products));
+        return name.hashCode();
     }
 }

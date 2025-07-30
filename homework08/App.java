@@ -5,62 +5,89 @@ import java.util.*;
 
 public class App {
     public static void main(String[] args) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt"));
-             BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt"))) {
+        String inputFile = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt";  // Используем относительный путь
+        String outputFile = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt";
 
-            // Читаем покупателей
-            String personsLine = reader.readLine();
-            String[] personsArray = personsLine.split(";");
-            Person[] people = new Person[personsArray.length];
-            for (int i = 0; i < personsArray.length; i++) {
-                Person p = new Person(personsArray[i]);
-                people[i] = p;
+        Map<String, Product> products = new HashMap<>();
+        Map<String, Person> people = new HashMap<>();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile))) {
+
+            List<String> lines = new ArrayList<>();
+            String line;
+
+            // Читаем все строки файла
+            while ((line = bufferedReader.readLine()) != null) {
+                line = line.trim();
+                if (!line.isEmpty()) {
+                    lines.add(line);
+                }
             }
 
-            // Читаем продукты
-            String productsLine = reader.readLine();
-            String[] productArray = productsLine.split(";");
-            Product[] products = new Product[productArray.length];
-            for (int i = 0; i < productArray.length; i++) {
-                Product pp = new Product(productArray[i]);
-                products[i] = pp;
-            }
+            // Парсим покупателей и продукты
+            boolean readingProducts = false;
+            boolean processingPurchases = false;
 
-            List<String> purchaseLog = new ArrayList<>();
+            for (String currentLine : lines) {
+                if (currentLine.equalsIgnoreCase("END")) break;
 
-            // Читаем покупки
-            String line = reader.readLine();
-            while (!line.equalsIgnoreCase("END")) {
-                String[] input = line.split("-");
-                if (input.length == 2) {
-                    String personName = input[0].trim();
-                    String productName = input[1].trim();
+                if (currentLine.contains("=")) {
+                    String[] parts = currentLine.split("=");
+                    String name = parts[0].trim();
+                    String valueStr = parts[1].trim();
 
-                    for (Person person : people) {
-                        if (person.getName().equals(personName)) {
-                            for (Product product : products) {
-                                if (product.getNameProduct().equals(productName)) {
-                                    String resultMessage = person.addProducts(product);
-                                    purchaseLog.add(resultMessage);
-                                    writer.write(resultMessage + "\n");
-                                    break;
-                                }
+                    // Очищаем строку от лишних символов для парсинга числа
+                    valueStr = valueStr.replaceAll("[^0-9.]", "");
+                    double value = Double.parseDouble(valueStr);
+
+                    // Определяем тип записи
+                    if (isProductName(name)) {
+                        readingProducts = true;
+                        products.put(name, new Product(name, value));
+                    } else {
+                        people.put(name, new Person(name, value));
+                    }
+                }
+
+                // Обрабатываем покупки
+                if (!currentLine.contains("=") && !people.isEmpty() && !products.isEmpty()) {
+                    processingPurchases = true;
+                }
+
+                if (processingPurchases) {
+                    String[] purchase = currentLine.split(" ");
+                    if (purchase.length == 2) {
+                        String personName = purchase[0];
+                        String productName = purchase[1];
+
+                        Person person = people.get(personName);
+                        Product product = products.get(productName);
+
+                        if (person != null && product != null) {
+                            if (person.addProductToBasket(product)) {
+                                String verb = personName.endsWith("на") ? "купила" : "купил";
+                                bufferedWriter.write(String.format("%s %s %s%n", personName, verb, productName));
+                            } else {
+                                bufferedWriter.write(String.format("%s не может позволить себе %s%n", personName, productName));
                             }
-                            break;
                         }
                     }
                 }
-                line = reader.readLine();
             }
 
-            // Записываем итоговые списки покупок
-            writer.newLine();
-            for (Person person : people) {
-                writer.write(person.toString() + "\n");
+            // Выводим итоговые корзины
+            for (Person person : people.values()) {
+                person.printBasketToFile(bufferedWriter);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isProductName(String name) {
+        return name.equals("Хлеб") || name.equals("Молоко") || name.equals("Торт") ||
+                name.equals("Кофе растворимый") || name.equals("Масло");
     }
 }

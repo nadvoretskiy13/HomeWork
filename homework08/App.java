@@ -1,21 +1,12 @@
 package homework08;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
-        BufferedReader reader = null;
-        BufferedWriter writer = null;
-
-        try {
-            reader = new BufferedReader(new FileReader("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt"));
-            writer = new BufferedWriter(new FileWriter("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt"));
+        try (BufferedReader reader = new BufferedReader(new FileReader("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt"));
+             BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt"))) {
 
             // Читаем покупателей
             String personsLine = reader.readLine();
@@ -24,9 +15,7 @@ public class App {
 
             for (String personData : personsArray) {
                 String[] parts = personData.split("=");
-                String name = parts[0].trim();
-                double balance = Double.parseDouble(parts[1].trim());
-                people.add(new Person(name, balance));
+                people.add(new Person(parts[0].trim(), Double.parseDouble(parts[1].trim())));
             }
 
             // Читаем продукты
@@ -36,56 +25,51 @@ public class App {
 
             for (String productData : productArray) {
                 String[] parts = productData.split("=");
-                String name = parts[0].trim();
-                double price = Double.parseDouble(parts[1].trim());
-                products.add(new Product(name, price));
+                products.add(new Product(parts[0].trim(), Double.parseDouble(parts[1].trim())));
             }
 
-            // Читаем покупки
-            List<String> purchaseLog = new ArrayList<>();
+            // Создаем мапы для быстрого поиска
+            Map<String, Person> personMap = new HashMap<>();
+            for (Person person : people) {
+                personMap.put(person.getName(), person);
+            }
 
+            Map<String, Product> productMap = new HashMap<>();
+            for (Product product : products) {
+                productMap.put(product.getName(), product);
+            }
+
+            // Обрабатываем покупки
+            List<String> purchaseLog = new ArrayList<>();
             String line;
+
             while ((line = reader.readLine()) != null && !line.equalsIgnoreCase("END")) {
                 String[] input = line.split(" ");
-
                 if (input.length == 2) {
                     String personName = input[0].trim();
                     String productName = input[1].trim();
 
-                    for (Person person : people) {
-                        if (person.getName().equals(personName)) {
-                            for (Product product : products) {
-                                if (product.getName().equals(productName)) {
-                                    String resultMessage = person.addProduct(product);
-                                    purchaseLog.add(resultMessage);
-                                    break;
-                                }
-                            }
-                            break;
-                        }
+                    Person person = personMap.get(personName);
+                    Product product = productMap.get(productName);
+
+                    if (person != null && product != null) {
+                        String result = person.addProduct(product);
+                        purchaseLog.add(result);
+                        writer.write(result + "\n");
                     }
                 }
             }
 
-            // Записываем результаты
-            for (String message : purchaseLog) {
-                writer.write(message + "\n");
-            }
+            // Добавляем пустую строку
             writer.newLine();
 
+            // Записываем итоговые списки покупок
             for (Person person : people) {
-                writer.write(person.toString() + "\n");
+                writer.write(person.getSummary() + "\n");
             }
 
         } catch (IOException e) {
             System.err.println("Ошибка при работе с файлами: " + e.getMessage());
-        } finally {
-            try {
-                if (reader != null) reader.close();
-                if (writer != null) writer.close();
-            } catch (IOException e) {
-                System.err.println("Ошибка при закрытии файлов: " + e.getMessage());
-            }
         }
     }
 }

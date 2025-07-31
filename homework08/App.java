@@ -5,89 +5,92 @@ import java.util.*;
 
 public class App {
     public static void main(String[] args) {
-        String inputFile = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt";  // Используем относительный путь
+        String inputFile = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/input.txt";
         String outputFile = "/Users/dmitriynadvoretskiy/homeworks/HomeWork/homework08/output.txt";
 
         Map<String, Product> products = new HashMap<>();
         Map<String, Person> people = new HashMap<>();
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile));
-             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(outputFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
 
             List<String> lines = new ArrayList<>();
             String line;
 
-            // Читаем все строки файла
-            while ((line = bufferedReader.readLine()) != null) {
+            // Считываем все строки до END
+            while ((line = reader.readLine()) != null) {
                 line = line.trim();
-                if (!line.isEmpty()) {
-                    lines.add(line);
+                if (line.equalsIgnoreCase("END")) break;
+                if (!line.isEmpty()) lines.add(line);
+            }
+
+            // Обработка первой строки — люди
+            if (!lines.isEmpty()) {
+                String[] personTokens = lines.get(0).split(";");
+                for (String token : personTokens) {
+                    String[] parts = token.split("=");
+                    if (parts.length == 2) {
+                        String name = parts[0].trim();
+                        double money = Double.parseDouble(parts[1].trim().replaceAll("[^0-9.]", ""));
+                        people.put(name, new Person(name, money));
+                    }
                 }
             }
 
-            // Парсим покупателей и продукты
-            boolean readingProducts = false;
-            boolean processingPurchases = false;
+            // Обработка второй строки — продукты
+            if (lines.size() > 1) {
+                String[] productTokens = lines.get(1).split(";");
+                for (String token : productTokens) {
+                    String[] parts = token.split("=");
+                    if (parts.length == 2) {
+                        String name = parts[0].trim();
+                        double price = Double.parseDouble(parts[1].trim().replaceAll("[^0-9.]", ""));
+                        products.put(name, new Product(name, price));
+                    }
+                }
+            }
 
-            for (String currentLine : lines) {
-                if (currentLine.equalsIgnoreCase("END")) break;
+            for (int i = 2; i < lines.size(); i++) {
+                String currentLine = lines.get(i);
 
-                if (currentLine.contains("=")) {
-                    String[] parts = currentLine.split("=");
-                    String name = parts[0].trim();
-                    String valueStr = parts[1].trim();
+                // Поиск имени покупателя
+                String matchedPerson = null;
+                for (String personName : people.keySet()) {
+                    if (currentLine.startsWith(personName + " ")) {
+                        matchedPerson = personName;
+                        break;
+                    }
+                }
 
-                    // Очищаем строку от лишних символов для парсинга числа
-                    valueStr = valueStr.replaceAll("[^0-9.]", "");
-                    double value = Double.parseDouble(valueStr);
+                // Поиск названия продукта
+                String matchedProduct = null;
+                for (String productName : products.keySet()) {
+                    if (currentLine.endsWith(" " + productName) || currentLine.equals(productName)) {
+                        matchedProduct = productName;
+                        break;
+                    }
+                }
 
-                    // Определяем тип записи
-                    if (isProductName(name)) {
-                        readingProducts = true;
-                        products.put(name, new Product(name, value));
+                if (matchedPerson != null && matchedProduct != null) {
+                    Person person = people.get(matchedPerson);
+                    Product product = products.get(matchedProduct);
+
+                    if (person.addProductToBasket(product)) {
+                        String verb = matchedPerson.endsWith("на") ? "купила" : "купил";
+                        writer.write(String.format("%s %s %s%n", matchedPerson, verb, matchedProduct));
                     } else {
-                        people.put(name, new Person(name, value));
-                    }
-                }
-
-                // Обрабатываем покупки
-                if (!currentLine.contains("=") && !people.isEmpty() && !products.isEmpty()) {
-                    processingPurchases = true;
-                }
-
-                if (processingPurchases) {
-                    String[] purchase = currentLine.split(" ");
-                    if (purchase.length == 2) {
-                        String personName = purchase[0];
-                        String productName = purchase[1];
-
-                        Person person = people.get(personName);
-                        Product product = products.get(productName);
-
-                        if (person != null && product != null) {
-                            if (person.addProductToBasket(product)) {
-                                String verb = personName.endsWith("на") ? "купила" : "купил";
-                                bufferedWriter.write(String.format("%s %s %s%n", personName, verb, productName));
-                            } else {
-                                bufferedWriter.write(String.format("%s не может позволить себе %s%n", personName, productName));
-                            }
-                        }
+                        writer.write(String.format("%s не может позволить себе %s%n", matchedPerson, matchedProduct));
                     }
                 }
             }
 
-            // Выводим итоговые корзины
+            // Итоговая печать корзин
             for (Person person : people.values()) {
-                person.printBasketToFile(bufferedWriter);
+                person.printBasketToFile(writer);
             }
 
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
-    }
-
-    private static boolean isProductName(String name) {
-        return name.equals("Хлеб") || name.equals("Молоко") || name.equals("Торт") ||
-                name.equals("Кофе растворимый") || name.equals("Масло");
     }
 }

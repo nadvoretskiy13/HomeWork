@@ -1,12 +1,12 @@
-package homework09;
+package homeworks.homework09;
 
-import homework09.cars.PerformanceCar;
-import homework09.cars.ShowCar;
-import homework09.garage.Garage;
-import homework09.races.CasualRace;
-import homework09.races.DragRace;
-import homework09.races.DriftRace;
-import homework09.races.Race;
+import homeworks.homework09.cars.PerformanceCar;
+import homeworks.homework09.cars.ShowCar;
+import homeworks.homework09.garage.Garage;
+import homeworks.homework09.races.CasualRace;
+import homeworks.homework09.races.DragRace;
+import homeworks.homework09.races.DriftRace;
+import homeworks.homework09.races.Race;
 public class App09 {
     public static void main(String[] args) {
         // Создание машин

@@ -1,5 +1,5 @@
-package homework09.races;
-import homework09.cars.Car;
+package homeworks.homework09.races;
+import homeworks.homework09.cars.Car;
 
 import java.util.ArrayList;
 import java.util.List;

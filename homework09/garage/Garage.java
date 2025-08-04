@@ -23,12 +23,6 @@ public class Garage {
         return parkedCars;
     }
 
-    /**
-     * Модификация припаркованной машины
-     * Увеличивает horsepower и suspension
-     * Для ShowCar — увеличивает stars
-     * Для PerformanceCar — добавляет новый addOn (условный)
-     */
     public void modifyCar(Car car, int tunePower, int tuneSuspension) {
         if (parkedCars.contains(car)) {
             car.setHorsepower(car.getHorsepower() + tunePower);
@@ -45,7 +39,6 @@ public class Garage {
             }
         }
     }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Содержание гаража:\n");

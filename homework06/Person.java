@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Person {
     private String name;
     private double money;
-    private Product[] products = new Product[0];
+    private homework06.Product[] products = new homework06.Product[0];
     //поля
 
 
@@ -52,12 +52,12 @@ public class Person {
         }
     }
 
-    public Product[] getProducts() {
+    public homework06.Product[] getProducts() {
 
         return products;
     }
 
-    public String addProducts(Product product) {
+    public String addProducts(homework06.Product product) {
         if (this.money >= product.getPrice()) {
             products = Arrays.copyOf(products, products.length + 1);
             products[products.length - 1] = product;

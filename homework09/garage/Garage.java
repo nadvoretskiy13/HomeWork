@@ -41,14 +41,14 @@ public class Garage {
 
             if (car instanceof PerformanceCar) {
                 PerformanceCar pc = (PerformanceCar) car;
-                pc.getAddOns().add("TunedExhaust");
+                pc.getAddOns().add("Тюнингованный выхлоп");
             }
         }
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Garage contains:\n");
+        StringBuilder sb = new StringBuilder("Содержание гаража:\n");
         for (Car c : parkedCars) {
             sb.append("- ").append(c).append("\n");
         }

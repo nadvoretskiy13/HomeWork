@@ -23,7 +23,7 @@ public class ShowCar extends Car {
 
     @Override
     public String toString() {
-        return super.toString() + ", Stars: " + stars;
+        return super.toString() + ", Звезды: " + stars;
     }
 
     @Override

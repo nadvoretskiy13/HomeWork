@@ -76,7 +76,7 @@ public class Car {
     // toString
     @Override
     public String toString() {
-        return String.format("%s %s (%d) HP: %d, Acceleration: %d, Suspension: %d, Durability: %d",
+        return String.format("%s %s (%d) Л/С: %d, Ускорение: %d, Подвеска: %d, Долговечность: %d",
                 brand, model, year, horsepower, acceleration, suspension, durability);
     }
 

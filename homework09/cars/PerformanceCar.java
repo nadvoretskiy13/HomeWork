@@ -25,7 +25,7 @@ public class PerformanceCar extends Car {
 
     @Override
     public String toString() {
-        return super.toString() + ", AddOns: " + (addOns.isEmpty() ? "None" : String.join(", ", addOns));
+        return super.toString() + ", Дополнения: " + (addOns.isEmpty() ? "None" : String.join(", ", addOns));
     }
 
     @Override

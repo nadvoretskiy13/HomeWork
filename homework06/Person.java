@@ -2,90 +2,52 @@ package homework06;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Person {
     private String name;
-    private double money;
-    private Product[] products = new Product[0];
-    //поля
-
-
-
-
-    public Person(String name, double money) {
+    private Long money;
+    private final Product[] products = new Product[10];
+    public Person(String name, Long money, Product[] products) {
         this.setName(name);
         this.setMoney(money);
     }
-
-    public Person(String params) {
-        String[] paramArray = params.split("=");
-        this.name = paramArray[0].trim();
-        this.money = Double.valueOf(paramArray[1].trim());
-    }
-    // конструктор
-
-
     public String getName() {
-
         return name;
     }
     public void setName(String name) {
         if (!name.isEmpty()) {
             this.name = name;
-        } else {
-            System.out.println("Имя не может быть пустым");
         }
     }
-
-
-
-    public double getMoney() {
-
+    public Long getMoney() {
         return money;
     }
-    public void setMoney(double money) {
+    public void setMoney(Long money) {
         if (money >= 0) {
             this.money = money;
-        } else {
-            System.out.println("Деньги не могут быть отрицательными");
         }
     }
-
     public Product[] getProducts() {
-
         return products;
     }
-
-    public String addProducts(Product product) {
-        if (this.money >= product.getPrice()) {
-            products = Arrays.copyOf(products, products.length + 1);
-            products[products.length - 1] = product;
-            this.money = this.money - product.getPrice();
-        }
-        return this.name + " купил(а) " + product.getNameProduct();
+    public void addProduct(Product products) {
     }
-
     @Override
     public String toString() {
-        if (products.length == 0) {
-            return name + " - Ничего не куплено";
-        }
-        return name + " - " + Arrays.stream(products)
-                .map(Product::getNameProduct)
-                .collect(Collectors.joining(", "));
+        return "Person{" +
+                "Имя='" + name + '\'' +
+                ", Деньги=" + money +
+                ", Продукты=" + Arrays.toString(products) +
+                '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Double.compare(money, person.money) == 0 && Objects.equals(name, person.name) && Objects.deepEquals(products, person.products);
+        return Objects.equals(name, person.name) && Objects.equals(money, person.money) && Objects.deepEquals(products, person.products);
     }
-
     @Override
     public int hashCode() {
-
         return Objects.hash(name, money, Arrays.hashCode(products));
     }
 }

@@ -3,61 +3,62 @@ package homeworks.homework06;
 import java.util.Objects;
 
 public class Product {
+    private String nameProduct;
+    private double price;
 
-    private int bread;
-    private int butter;
-    private int Coffe;
-    private int cake;
-    private int milk;
 
-    public int getBread() {
-        return bread;
+
+    public Product(String nameProduct, double price) {
+        this.nameProduct = nameProduct;
+        this.price = price;
     }
-    public void setBread(int bread) {
-        this.bread = bread;
+
+    public Product(String paramss) {
+        String[] paramssArray = paramss.split("=");
+        this.nameProduct = paramssArray[0].trim();
+        this.price = Double.valueOf(paramssArray[1].trim());
     }
-    public int getButter() {
-        return butter;
+
+    public String getNameProduct() {
+        return nameProduct;
     }
-    public void setButter(int butter) {
-        this.butter = butter;
+    public void setNameProduct(String nameProduct) {
+        if (!nameProduct.isEmpty()) {
+            this.nameProduct = nameProduct;
+        } else {
+            System.out.println("Название продукта не может быть пустым");
+        }
     }
-    public int getCoffe() {
-        return Coffe;
+
+    public double getPrice() {
+        return price;
     }
-    public void setCoffe(int coffe) {
-        Coffe = coffe;
+    public void setPrice(double price) {
+        if (price >= 0) {
+            this.price = price;
+        } else {
+            System.out.println("Стоимость продукта не может быть отрицательной");
+        }
     }
-    public int getCake() {
-        return cake;
-    }
-    public void setCake(int cake) {
-        this.cake = cake;
-    }
-    public int getMilk() {
-        return milk;
-    }
-    public void setMilk(int milk) {
-        this.milk = milk;
-    }
+
+
+
+
     @Override
     public String toString() {
-        return "Product{" +
-                "Хлеб=" + bread +
-                ", Масло=" + butter +
-                ", Кофе=" + Coffe +
-                ", Торт=" + cake +
-                ", Молоко=" + milk +
-                '}';
+        return nameProduct;
     }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return bread == product.bread && butter == product.butter && Coffe == product.Coffe && cake == product.cake && milk == product.milk;
+        return Double.compare(price, product.price) == 0 && Objects.equals(nameProduct, product.nameProduct);
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(bread, butter, Coffe, cake, milk);
+        return Objects.hash(nameProduct, price);
     }
 }

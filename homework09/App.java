@@ -1,52 +1,46 @@
 package homework09;
 
+import homework09.cars.Car;
+import homework09.cars.PerformanceCar;
+import homework09.cars.ShowCar;
+import homework09.garage.Garage;
+import homework09.races.CasualRace;
+import homework09.races.DragRace;
+import homework09.races.DriftRace;
+import homework09.races.Race;
 public class App {
     public static void main(String[] args) {
-        // Создаем базовые автомобили
-        Car car1 = new Car("Toyota", "Camry", 2020, 180, 8, 5, 100);
-        Car car2 = new Car("BMW", "M5", 2021, 600, 3, 7, 90);
+        // Создание машин
+        PerformanceCar bmw = new PerformanceCar("BMW", "M3", 2020, 400, 4, 100, 80);
+        ShowCar audi = new ShowCar("Audi", "R8", 2021, 610, 3, 110, 90);
+        audi.setStars(2);
 
-        // Создаем специализированные автомобили
-        PerformanceCar perfCar = new PerformanceCar("Ferrari", "F8", 2021, 600, 3, 8, 80);
-        ShowCar showCar = new ShowCar("Lamborghini", "Aventador", 2022, 700, 2, 7, 90);
-
-        // Добавляем дополнения к гоночному автомобилю
-        perfCar.getAddOns().add("Турбонаддув");
-        perfCar.getAddOns().add("Спортивные тормоза");
-
-        // Создаем гонки
-        Race casualRace = new Race(10000, "Городская трасса", 100000);
-        DragRace dragRace = new DragRace(402, "Драг-стрип", 50000);
-        DriftRace driftRace = new DriftRace(2000, "Дрифт-арена", 75000);
-
-        // Добавляем участников в гонки
-        casualRace.addParticipant(car1);
-        casualRace.addParticipant(car2);
-        dragRace.addParticipant(perfCar);
-        driftRace.addParticipant(showCar);
-
-        // Создаем гараж и добавляем автомобили
+        // Гараж
         Garage garage = new Garage();
-        garage.addCar(car1);
-        garage.addCar(car2);
-        garage.addCar(perfCar);
-        garage.addCar(showCar);
+        garage.parkCar(bmw);
+        garage.parkCar(audi);
+        garage.modifyCar(bmw, 50, 10);  // тюнинг
+        garage.modifyCar(audi, 30, 15); // тюнинг
 
-        // Выводим информацию
-        System.out.println("Список автомобилей в гараже:");
-        for (Car car : garage.getParkedCars()) {
-            System.out.println(car.toString());
-        }
+        System.out.println(garage);
 
-        // Пример модификации автомобиля
-        System.out.println("\nМодифицируем автомобиль:");
-        garage.modifyCar(car1, "Улучшенная подвеска");
-        System.out.println(car1.toString());
+        // Гонки
+        Race drag = new DragRace(500, "Highway", 10000);
+        drag.addParticipant(bmw);
+        drag.addParticipant(audi);
 
-        // Выводим информацию о гонках
-        System.out.println("\nИнформация о гонках:");
-        System.out.println(casualRace.toString());
-        System.out.println(dragRace.toString());
-        System.out.println(driftRace.toString());
+        Race casual = new CasualRace(300, "City Circuit", 5000);
+        casual.addParticipant(bmw);
+        casual.addParticipant(audi);
+
+        System.out.println("\nDrag Race Winner: " + drag.determineWinner());
+        System.out.println("Casual Race Winner: " + casual.determineWinner());
+
+        // Drift
+        Race drift = new DriftRace(200, "Mountain Drift", 7000);
+        drift.addParticipant(bmw);
+        drift.addParticipant(audi);
+
+        System.out.println("Drift Race Winner: " + drift.determineWinner());
     }
 }

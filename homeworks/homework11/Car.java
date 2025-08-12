@@ -1,8 +1,5 @@
 package homeworks.homework11;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 class Car {
     private String number;
     private String model;

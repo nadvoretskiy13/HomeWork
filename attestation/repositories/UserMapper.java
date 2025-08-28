@@ -1,6 +1,6 @@
-package attestation.attestation01.repositories;
+package attestation.repositories;
 
-import attestation.attestation01.User;
+import attestation.attestation01.attestation01.User;
 
 
 import java.time.LocalDateTime;

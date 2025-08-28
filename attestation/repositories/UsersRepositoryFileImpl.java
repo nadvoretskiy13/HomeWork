@@ -1,8 +1,8 @@
-package attestation.attestation01.repositories;
+package attestation.repositories;
 
-import attestation.attestation01.exceptions.FileOperationException;
-import attestation.attestation01.exceptions.UserNotFoundException;
-import attestation.attestation01.User;
+import attestation.exceptions.FileOperationException;
+import attestation.exceptions.UserNotFoundException;
+import attestation.attestation01.attestation01.User;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;

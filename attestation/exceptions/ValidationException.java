@@ -1,4 +1,4 @@
-package attestation.attestation01.exceptions;
+package attestation.exceptions;
 
 public class ValidationException extends RuntimeException {
     public ValidationException(String message) { super(message); }

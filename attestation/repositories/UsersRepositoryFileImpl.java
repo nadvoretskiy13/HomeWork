@@ -2,7 +2,7 @@ package attestation.repositories;
 
 import attestation.exceptions.FileOperationException;
 import attestation.exceptions.UserNotFoundException;
-import attestation.attestation01.attestation01.User;
+import attestation.model.User ;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;

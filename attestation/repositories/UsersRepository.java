@@ -1,6 +1,6 @@
 package attestation.repositories;
 
-import attestation.attestation01.attestation01.User;
+import attestation.model.User ;
 
 import java.util.List;
 public interface UsersRepository {

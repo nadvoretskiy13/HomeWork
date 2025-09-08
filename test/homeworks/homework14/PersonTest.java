@@ -1,9 +1,6 @@
 package homeworks.homework14;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import homeworks.homework14.Person;
-import homeworks.homework14.Product;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

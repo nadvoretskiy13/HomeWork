@@ -20,7 +20,7 @@
     </properties>
 
     <dependencies>
-        <!-- JUnit для тестов -->
+        <!-- JUnit 5 для тестов -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -37,7 +37,7 @@
         </resources>
 
         <plugins>
-            <!-- Компиляция -->
+            <!-- Компиляция Java -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -48,7 +48,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Исполняемый jar с главным классом -->
+            <!-- Jar с указанием main-class -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -68,11 +68,15 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>homeworks.homework15.App</mainClass>
+                        </manifest>
+                    </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                     <finalName>homework15</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
@@ -83,13 +87,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <!-- Плагин для запуска тестов -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
             </plugin>
         </plugins>
     </build>

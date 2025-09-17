@@ -1,6 +1,6 @@
 package homework14;
 
-import main.java.homeworks.homework14.Product;
+import homeworks.homework14.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

@@ -1,7 +1,7 @@
 package homework14;
 
-import main.java.homeworks.homework14.Person;
-import main.java.homeworks.homework14.Product;
+import homeworks.homework14.Person;
+import homeworks.homework14.Product;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 

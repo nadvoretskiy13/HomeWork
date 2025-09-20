@@ -1,27 +1,28 @@
 #!/bin/bash
 
-# Создаем папки для исходников и тестов
+# Папки Maven
 mkdir -p src/main/java/homeworks/homework16/cars
 mkdir -p src/main/java/homeworks/homework16/garage
 mkdir -p src/main/java/homeworks/homework16/races
 mkdir -p src/main/java/homeworks/homework16/repository
-mkdir -p src/test/java/homeworks/homework16
+mkdir -p src/test/java/homeworks/homework16/repository
 
-echo "Папки созданы."
+# Перемещаем исходники
+mv scr/homeworks/homework16/App16.java src/main/java/homeworks/homework16/
+mv scr/homeworks/homework16/cars/*.java src/main/java/homeworks/homework16/cars/
+mv scr/homeworks/homework16/garage/*.java src/main/java/homeworks/homework16/garage/
+mv scr/homeworks/homework16/races/*.java src/main/java/homeworks/homework16/races/
+mv scr/homeworks/homework16/repository/*.java src/main/java/homeworks/homework16/repository/
 
-# Перемещаем файлы (поменяй пути, если файлы в другом месте)
-mv App16.java src/main/java/homeworks/homework16/
-mv cars/*.java src/main/java/homeworks/homework16/cars/
-mv garage/*.java src/main/java/homeworks/homework16/garage/
-mv races/*.java src/main/java/homeworks/homework16/races/
-mv repository/*.java src/main/java/homeworks/homework16/repository/
-mv CarRepositoryTest.java src/test/java/homeworks/homework16/
+# Перемещаем тесты
+mv scr/test/homeworks/homework16/repository/*.java src/test/java/homeworks/homework16/repository/
 
-echo "Файлы перемещены."
+# Проверка структуры
+echo "Структура src/main/java/homeworks/homework16:"
+find src/main/java/homeworks/homework16
 
-# Проверяем структуру
-echo "Текущая структура src/main/java/homeworks/homework16/:"
-tree src/main/java/homeworks/homework16/
+echo "Структура src/test/java/homeworks/homework16:"
+find src/test/java/homeworks/homework16
 
 # Чистая сборка и компиляция
 mvn -f pom16.xml clean compile
@@ -33,4 +34,4 @@ find target/classes -name "*.class"
 # Сборка fat JAR
 mvn -f pom16.xml package
 
-echo "Готово! Fat JAR в target/cars-races.jar"
+echo "Готово! Fat JAR должен появиться в target/cars-races-1.0-SNAPSHOT-shaded.jar"

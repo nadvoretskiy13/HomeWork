@@ -28,9 +28,5 @@ public class CarRepositoryFileImpl implements CarRepository {
     public List<Car> getAllCars() {
         return cars;
     }
-
-    @Override
-    public List<Car> findAll() {
-        return List.of();
-    }
 }
+

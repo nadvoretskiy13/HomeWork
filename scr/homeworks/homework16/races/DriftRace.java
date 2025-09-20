@@ -1,6 +1,6 @@
 package homeworks.homework16.races;
 
-import homeworks.homework09.cars.Car;
+import homeworks.homework16.cars.Car;
 
 public class DriftRace extends Race {
     public DriftRace(int length, String route, int prizePool) {

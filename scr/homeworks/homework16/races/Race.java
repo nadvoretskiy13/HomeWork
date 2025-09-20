@@ -1,16 +1,9 @@
 package homeworks.homework16.races;
 
 import homeworks.homework16.cars.Car;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode
 public abstract class Race {
     private int length;
     private String route;
@@ -27,14 +20,11 @@ public abstract class Race {
         participants.add(car);
     }
 
-    public abstract Car determineWinner();
-
-    @Override
-    public String toString() {
-        return String.format("Route: %s (%d km), Prize Pool: $%d, Participants: %d",
-                route, length, prizePool, participants.size());
+    public List<Car> getParticipants() {
+        return participants;
     }
-}
 
+    public abstract Car determineWinner();
+}
 
 

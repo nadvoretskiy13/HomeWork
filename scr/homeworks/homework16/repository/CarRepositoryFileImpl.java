@@ -4,27 +4,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import homeworks.homework16.cars.Car;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CarRepositoryFileImpl implements CarRepository {
-    private final String fileName;
+public class CarRepositoryFileImpl {
 
-    public CarRepositoryFileImpl(String fileName) {
-        this.fileName = fileName;
+    private final File file;
+    private final ObjectMapper objectMapper;
+
+    public CarRepositoryFileImpl(String filePath) {
+        this.file = new File(filePath);
+        this.objectMapper = new ObjectMapper();
     }
 
-    @Override
-    public List<Car> findAll() {
-        homeworks.homework16.repository.ObjectMapper mapper = new ObjectMapper();
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            if (is == null) {
-                throw new RuntimeException("Файл " + fileName + " не найден");
-            }
-            return mapper.readValue(is, new TypeReference<List<Car>>() {});
-        } catch (IOException e) {
-            throw new RuntimeException("Ошибка чтения файла: " + fileName, e);
+    public void saveCars(List<Car> cars) throws IOException {
+        objectMapper.writeValue(file, cars);
+    }
+
+    public List<Car> loadCars() throws IOException {
+        if (!file.exists() || file.length() == 0) {
+            return new ArrayList<>();
         }
+        return objectMapper.readValue(file, new TypeReference<List<Car>>() {});
     }
 }

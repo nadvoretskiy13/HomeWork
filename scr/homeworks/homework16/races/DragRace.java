@@ -1,8 +1,9 @@
 package homeworks.homework16.races;
 
-import homeworks.homework09.cars.Car;
+import homeworks.homework16.cars.Car;
 
 public class DragRace extends Race {
+
     public DragRace(int length, String route, int prizePool) {
         super(length, route, prizePool);
     }
@@ -10,7 +11,7 @@ public class DragRace extends Race {
     @Override
     public Car determineWinner() {
         return getParticipants().stream()
-                .max((a, b) -> Integer.compare(a.getHorsepower(), b.getHorsepower()))
+                .max((c1, c2) -> Integer.compare(c1.getHorsepower() + c1.getHorsepower() / 2, c2.getHorsepower() + c2.getHorsepower() / 2))
                 .orElse(null);
     }
 }

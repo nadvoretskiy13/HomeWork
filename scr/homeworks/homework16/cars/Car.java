@@ -1,26 +1,25 @@
 package homeworks.homework16.cars;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Car {
     private String brand;
     private String model;
     private int year;
     private int horsepower;
-    private int acceleration;
-    private int suspension;
-    private int durability;
+    private int seats;
+    private int topSpeed;
+    private int price;
 
-    @Override
-    public String toString() {
-        return String.format("%s %s (%d) Л/С: %d, Ускорение: %d, Подвеска: %d, Долговечность: %d",
-                brand, model, year, horsepower, acceleration, suspension, durability);
+    public Car(String brand, String model, int year, int horsepower, int seats, int topSpeed, int price) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.horsepower = horsepower;
+        this.seats = seats;
+        this.topSpeed = topSpeed;
+        this.price = price;
     }
-}
 
+    public String getBrand() { return brand; }
+    public int getHorsepower() { return horsepower; }
+}
 

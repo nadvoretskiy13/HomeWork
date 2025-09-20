@@ -1,18 +1,29 @@
 package homeworks.homework16.garage;
 
 import homeworks.homework16.cars.Car;
+import lombok.Getter;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+@Getter
 public class Garage {
-    private List<Car> cars = new ArrayList<>();
+    private final List<Car> cars = new ArrayList<>();
 
-    public void park(Car car) {
+    public void addCar(Car car) {
         cars.add(car);
     }
 
-    public int getTotalHorsepower() {
-        return cars.stream().mapToInt(Car::getHorsepower).sum();
+    public void showCarsSortedByTopSpeed() {
+        cars.stream()
+                .sorted(Comparator.comparingInt(Car::getTopSpeed).reversed())
+                .forEach(c -> System.out.println(c.getMake() + " " + c.getModel() + " - " + c.getTopSpeed() + " km/h"));
+    }
+
+    public void showCarsSortedByHorsepower() {
+        cars.stream()
+                .sorted(Comparator.comparingInt(Car::getHorsepower).reversed())
+                .forEach(c -> System.out.println(c.getMake() + " " + c.getModel() + " - " + c.getHorsepower() + " hp"));
     }
 }
-

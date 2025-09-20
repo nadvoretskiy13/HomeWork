@@ -1,30 +1,29 @@
 package homeworks.homework16;
 
-import homeworks.homework16.cars.Car;
 import homeworks.homework16.cars.PerformanceCar;
 import homeworks.homework16.cars.ShowCar;
-import homeworks.homework16.garage.Garage;
+import homeworks.homework16.races.DragRace;
+import homeworks.homework16.races.DriftRace;
 import homeworks.homework16.races.CasualRace;
 
 public class App16 {
     public static void main(String[] args) {
-        Car car1 = new Car("Toyota", "Supra", 2020, 320, 5, 150, 1000);
-        PerformanceCar pCar = new PerformanceCar("BMW", "M3", 2021, 450, 4, 180, 1200);
-        ShowCar sCar = new ShowCar("Audi", "R8", 2022, 610, 3, 220, 1300, 5);
+        PerformanceCar perfCar = new PerformanceCar(
+                "Ferrari", "F8", 710, 2, 1480, 340, 2, 50
+        );
 
-        Garage garage = new Garage();
-        garage.park(car1);
-        garage.park(pCar);
-        garage.park(sCar);
+        ShowCar showCar = new ShowCar(
+                "Lamborghini", "Huracan", 640, 2, 1500, 325, 2, 40, true
+        );
 
-        System.out.println("Total Horsepower in garage: " + garage.getTotalHorsepower());
+        DragRace dragRace = new DragRace(perfCar, showCar);
+        DriftRace driftRace = new DriftRace(perfCar, showCar);
+        CasualRace casualRace = new CasualRace(perfCar, showCar);
 
-        CasualRace race = new CasualRace(500, "City Circuit", 10000);
-        race.addParticipant(car1);
-        race.addParticipant(pCar);
-        race.addParticipant(sCar);
-
-        System.out.println("Winner: " + race.determineWinner().getBrand());
+        dragRace.startRace();
+        driftRace.startRace();
+        casualRace.startRace();
     }
 }
+
 

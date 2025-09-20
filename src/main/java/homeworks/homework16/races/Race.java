@@ -1,30 +1,17 @@
 package homeworks.homework16.races;
 
 import homeworks.homework16.cars.Car;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
 
+@Getter
 public abstract class Race {
-    private int length;
-    private String route;
-    private int prizePool;
-    private List<Car> participants = new ArrayList<>();
+    protected Car c1;
+    protected Car c2;
 
-    public Race(int length, String route, int prizePool) {
-        this.length = length;
-        this.route = route;
-        this.prizePool = prizePool;
+    public Race(Car c1, Car c2) {
+        this.c1 = c1;
+        this.c2 = c2;
     }
 
-    public void addParticipant(Car car) {
-        participants.add(car);
-    }
-
-    public List<Car> getParticipants() {
-        return participants;
-    }
-
-    public abstract Car determineWinner();
+    public abstract void startRace();
 }
-
-

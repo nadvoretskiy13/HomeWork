@@ -1,20 +1,13 @@
 package homeworks.homework16.cars;
 
+import lombok.Getter;
+
+@Getter
 public class PerformanceCar extends Car {
-    private int addOns;
+    private int acceleration;
 
-    public PerformanceCar(String brand, String model, int year, int horsepower, int seats, int topSpeed, int price) {
-        super(brand, model, year, horsepower, seats, topSpeed, price);
-        this.addOns = 0;
-    }
-
-    public int getAddOns() {
-        return addOns;
-    }
-
-    public void addAddon() {
-        addOns++;
+    public PerformanceCar(String make, String model, int horsepower, int topSpeed, int acceleration) {
+        super(make, model, horsepower, topSpeed);
+        this.acceleration = acceleration;
     }
 }
-
-

@@ -1,15 +1,13 @@
 package homeworks.homework16.cars;
 
+import lombok.Getter;
+
+@Getter
 public class ShowCar extends Car {
-    private int stars;
+    private boolean isModified;
 
-    public ShowCar(String brand, String model, int year, int horsepower, int seats, int topSpeed, int price, int stars) {
-        super(brand, model, year, horsepower, seats, topSpeed, price);
-        this.stars = stars;
-    }
-
-    public int getStars() {
-        return stars;
+    public ShowCar(String make, String model, int horsepower, int topSpeed, boolean isModified) {
+        super(make, model, horsepower, topSpeed);
+        this.isModified = isModified;
     }
 }
-

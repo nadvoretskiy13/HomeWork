@@ -4,14 +4,13 @@ import homeworks.homework16.cars.Car;
 
 public class DragRace extends Race {
 
-    public DragRace(int length, String route, int prizePool) {
-        super(length, route, prizePool);
+    public DragRace(Car c1, Car c2) {
+        super(c1, c2);
     }
 
     @Override
-    public Car determineWinner() {
-        return getParticipants().stream()
-                .max((c1, c2) -> Integer.compare(c1.getHorsepower() + c1.getHorsepower() / 2, c2.getHorsepower() + c2.getHorsepower() / 2))
-                .orElse(null);
+    public void startRace() {
+        Car winner = (c1.getHorsepower() > c2.getHorsepower()) ? c1 : c2;
+        System.out.println("DragRace winner: " + winner.getMake() + " " + winner.getModel());
     }
 }

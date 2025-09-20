@@ -10,33 +10,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarRepositoryFileImpl {
-    private final String filename;
-    private final ObjectMapper mapper;
+    private final String fileName;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public CarRepositoryFileImpl(String filename) {
-        this.filename = filename;
-        this.mapper = new ObjectMapper();
+    public CarRepositoryFileImpl(String fileName) {
+        this.fileName = fileName;
     }
 
     public void saveCars(List<Car> cars) {
         try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), cars);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(fileName), cars);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // можно заменить на логирование
         }
     }
 
     public List<Car> loadCars() {
-        File file = new File(filename);
-        if (!file.exists()) {
-            return new ArrayList<>();
-        }
         try {
-            return mapper.readValue(file, new TypeReference<List<Car>>() {});
+            File file = new File(fileName);
+            if (!file.exists()) return new ArrayList<>();
+            return objectMapper.readValue(file, new TypeReference<List<Car>>() {});
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }
     }
 }
+
 

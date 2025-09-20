@@ -1,20 +1,25 @@
 [
   {
+    "type": "PerformanceCar",
     "brand": "BMW",
     "model": "M3",
     "year": 2020,
     "horsepower": 400,
     "acceleration": 4,
     "suspension": 100,
-    "durability": 80
+    "durability": 80,
+    "addOns": []
   },
   {
+    "type": "ShowCar",
     "brand": "Audi",
     "model": "R8",
     "year": 2021,
     "horsepower": 610,
     "acceleration": 3,
     "suspension": 110,
-    "durability": 90
+    "durability": 90,
+    "stars": 2
   }
 ]
+

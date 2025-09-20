@@ -80,7 +80,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>main.java.homeworks.homework15.App</mainClass>
+                            <mainClass>homeworks.homework15.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -94,7 +94,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>main.java.homeworks.homework15.App</mainClass>
+                            <mainClass>homeworks.homework15.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

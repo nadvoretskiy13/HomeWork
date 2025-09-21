@@ -1,17 +1,18 @@
 package homeworks.homework16.races;
 
+import lombok.Data;
 import homeworks.homework16.cars.Car;
-import lombok.Getter;
+import java.util.List;
 
-@Getter
+@Data
 public abstract class Race {
-    protected Car c1;
-    protected Car c2;
+    protected String name;
+    protected List<Car> participants;
 
-    public Race(Car c1, Car c2) {
-        this.c1 = c1;
-        this.c2 = c2;
+    public Race(String name, List<Car> participants) {
+        this.name = name;
+        this.participants = participants;
     }
 
-    public abstract void startRace();
+    public abstract Car startRace();
 }

@@ -1,29 +1,26 @@
 package homeworks.homework16;
 
-import homeworks.homework16.cars.PerformanceCar;
-import homeworks.homework16.cars.ShowCar;
-import homeworks.homework16.races.DragRace;
-import homeworks.homework16.races.DriftRace;
-import homeworks.homework16.races.CasualRace;
+import homeworks.homework16.cars.Car;
+import homeworks.homework16.garage.Garage;
+import homeworks.homework16.repository.CarRepository;
+import homeworks.homework16.repository.CarRepositoryFileImpl;
+
+import java.util.List;
 
 public class App16 {
     public static void main(String[] args) {
-        PerformanceCar perfCar = new PerformanceCar(
-                "Ferrari", "F8", 710, 2, 1480, 340, 2, 50
-        );
+        CarRepository repo = new CarRepositoryFileImpl("cars.txt");
 
-        ShowCar showCar = new ShowCar(
-                "Lamborghini", "Huracan", 640, 2, 1500, 325, 2, 40, true
-        );
+        List<Car> cars = repo.getAllCars();
 
-        DragRace dragRace = new DragRace(perfCar, showCar);
-        DriftRace driftRace = new DriftRace(perfCar, showCar);
-        CasualRace casualRace = new CasualRace(perfCar, showCar);
+        Garage garage = new Garage(cars);
 
-        dragRace.startRace();
-        driftRace.startRace();
-        casualRace.startRace();
+        System.out.println("Before sorting by top speed:");
+        garage.printCars();
+
+        garage.sortByTopSpeed();
+
+        System.out.println("\nAfter sorting by top speed:");
+        garage.printCars();
     }
 }
-
-

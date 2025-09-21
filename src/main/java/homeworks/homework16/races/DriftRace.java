@@ -2,15 +2,16 @@ package homeworks.homework16.races;
 
 import homeworks.homework16.cars.Car;
 
-public class DriftRace extends Race {
+public class DriftRace {
+    private final Car c1;
+    private final Car c2;
 
     public DriftRace(Car c1, Car c2) {
-        super(c1, c2);
+        this.c1 = c1;
+        this.c2 = c2;
     }
 
-    @Override
     public void startRace() {
-        Car winner = (c1.getTopSpeed() > c2.getTopSpeed()) ? c1 : c2;
-        System.out.println("DriftRace winner: " + winner.getMake() + " " + winner.getModel());
+        System.out.println("Drift race: " + c1.getName() + " vs " + c2.getName());
     }
 }

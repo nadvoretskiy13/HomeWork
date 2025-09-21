@@ -1,44 +1,38 @@
 package homeworks.homework16.repository;
 
 import homeworks.homework16.cars.Car;
-import homeworks.homework16.cars.PerformanceCar;
-import homeworks.homework16.cars.ShowCar;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.nio.file.Paths;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CarRepositoryFileImplTest {
 
-    private static final String TEST_FILE = "test_cars.json";
+    private CarRepositoryFileImpl carRepo;
+
+    @BeforeEach
+    void setUp() {
+        // Подключаем тестовый файл из src/test/resources
+        String path = Paths.get("src/test/resources/test_cars.txt").toAbsolutePath().toString();
+        carRepo = new CarRepositoryFileImpl(path);
+    }
 
     @Test
-    void testSaveAndLoadCars() {
-        CarRepositoryFileImpl repository = new CarRepositoryFileImpl(TEST_FILE);
+    void testLoadCars() {
+        List<Car> cars = carRepo.getAllCars();
+        assertNotNull(cars, "Список машин не должен быть null");
+        assertEquals(3, cars.size(), "Должно быть 3 машины в списке");
 
-        PerformanceCar perfCar = new PerformanceCar(
-                "Ferrari", "F8", 710, 2, 1480, 340, 2, 50
-        );
-        ShowCar showCar = new ShowCar(
-                "Lamborghini", "Huracan", 640, 2, 1500, 325, 2, 40, true
-        );
+        assertEquals("CarA", cars.get(0).getName());
+        assertEquals(120, cars.get(0).getTopSpeed());
 
-        List<Car> carsToSave = new ArrayList<>();
-        carsToSave.add(perfCar);
-        carsToSave.add(showCar);
+        assertEquals("CarB", cars.get(1).getName());
+        assertEquals(150, cars.get(1).getTopSpeed());
 
-        repository.saveCars(carsToSave);
-
-        List<Car> loadedCars = repository.loadCars();
-
-        assertEquals(2, loadedCars.size());
-        assertEquals(perfCar.getMake(), loadedCars.get(0).getMake());
-        assertEquals(showCar.getMake(), loadedCars.get(1).getMake());
-
-        // Удаляем файл после теста
-        new File(TEST_FILE).delete();
+        assertEquals("CarC", cars.get(2).getName());
+        assertEquals(180, cars.get(2).getTopSpeed());
     }
 }

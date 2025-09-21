@@ -1,4 +1,0 @@
-[
-  {"brand":"Ferrari","model":"F8","year":2022,"horsepower":710,"seats":2,"topSpeed":340,"price":280000},
-  {"brand":"Lamborghini","model":"Aventador","year":2021,"horsepower":770,"seats":2,"topSpeed":350,"price":400000,"stars":5}
-]

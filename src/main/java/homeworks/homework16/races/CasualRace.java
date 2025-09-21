@@ -2,17 +2,16 @@ package homeworks.homework16.races;
 
 import homeworks.homework16.cars.Car;
 
-public class CasualRace extends Race {
+public class CasualRace {
+    private final Car c1;
+    private final Car c2;
 
     public CasualRace(Car c1, Car c2) {
-        super(c1, c2);
+        this.c1 = c1;
+        this.c2 = c2;
     }
 
-    @Override
     public void startRace() {
-        int score1 = c1.getHorsepower() + c1.getTopSpeed();
-        int score2 = c2.getHorsepower() + c2.getTopSpeed();
-        Car winner = (score1 > score2) ? c1 : c2;
-        System.out.println("CasualRace winner: " + winner.getMake() + " " + winner.getModel());
+        System.out.println("Casual race: " + c1.getName() + " vs " + c2.getName());
     }
 }

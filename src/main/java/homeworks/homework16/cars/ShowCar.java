@@ -1,13 +1,13 @@
 package homeworks.homework16.cars;
 
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+@NoArgsConstructor
 public class ShowCar extends Car {
-    private boolean isModified;
 
-    public ShowCar(String make, String model, int horsepower, int topSpeed, boolean isModified) {
-        super(make, model, horsepower, topSpeed);
-        this.isModified = isModified;
+    public ShowCar(String name, int horsepower) {
+        super(name, horsepower);
     }
+
+    // Можно добавить свои методы специфические для ShowCar
 }

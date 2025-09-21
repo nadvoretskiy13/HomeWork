@@ -1,29 +1,22 @@
 package homeworks.homework16.garage;
 
 import homeworks.homework16.cars.Car;
-import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-@Getter
 public class Garage {
-    private final List<Car> cars = new ArrayList<>();
 
-    public void addCar(Car car) {
-        cars.add(car);
+    private List<Car> cars;
+
+    public Garage(List<Car> cars) {
+        this.cars = cars;
     }
 
-    public void showCarsSortedByTopSpeed() {
-        cars.stream()
-                .sorted(Comparator.comparingInt(Car::getTopSpeed).reversed())
-                .forEach(c -> System.out.println(c.getMake() + " " + c.getModel() + " - " + c.getTopSpeed() + " km/h"));
+    // Пример метода сортировки по скорости
+    public void sortByTopSpeed() {
+        cars.sort((c1, c2) -> Integer.compare(c2.getTopSpeed(), c1.getTopSpeed()));
     }
 
-    public void showCarsSortedByHorsepower() {
-        cars.stream()
-                .sorted(Comparator.comparingInt(Car::getHorsepower).reversed())
-                .forEach(c -> System.out.println(c.getMake() + " " + c.getModel() + " - " + c.getHorsepower() + " hp"));
+    public void printCars() {
+        cars.forEach(car -> System.out.println(car.getName() + " - " + car.getTopSpeed()));
     }
 }

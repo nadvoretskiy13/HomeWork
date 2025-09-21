@@ -1,13 +1,13 @@
 package homeworks.homework16.cars;
 
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
+@NoArgsConstructor
 public class PerformanceCar extends Car {
-    private int acceleration;
 
-    public PerformanceCar(String make, String model, int horsepower, int topSpeed, int acceleration) {
-        super(make, model, horsepower, topSpeed);
-        this.acceleration = acceleration;
+    public PerformanceCar(String name, int horsepower) {
+        super(name, horsepower);
     }
+
+    // Можно добавить методы специфичные для PerformanceCar
 }

@@ -1,15 +1,19 @@
 package homeworks.homework16.cars;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor // добавляем пустой конструктор для super()
 public class Car {
-    private String make;
-    private String model;
+    private String name;
     private int horsepower;
-    private int topSpeed;
-}
 
+    // Пример метода getTopSpeed для Garage
+    public int getTopSpeed() {
+        return horsepower * 2; // можно заменить на реальную формулу
+    }
+}
 

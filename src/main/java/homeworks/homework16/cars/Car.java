@@ -5,15 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor // добавляем пустой конструктор для super()
 public class Car {
-    private String name;
+    private String brand;
+    private String model;
     private int horsepower;
-
-    // Пример метода getTopSpeed для Garage
-    public int getTopSpeed() {
-        return horsepower * 2; // можно заменить на реальную формулу
-    }
+    private int topSpeed;
 }
-

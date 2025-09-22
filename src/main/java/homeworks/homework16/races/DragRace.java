@@ -1,18 +1,19 @@
 package homeworks.homework16.races;
 
 import homeworks.homework16.cars.Car;
-import java.util.List;
+
+import java.util.Comparator;
 
 public class DragRace extends Race {
-
-    public DragRace(String name, List<Car> participants) {
-        super(name, participants);
+    public DragRace(java.util.List<Car> participants) {
+        super(participants);
     }
 
     @Override
-    public Car startRace() {
+    public Car start() {
         return participants.stream()
-                .max((c1, c2) -> Integer.compare(c1.getHorsepower(), c2.getHorsepower()))
+                .max(Comparator.comparingInt(Car::getHorsepower))
                 .orElse(null);
     }
 }
+

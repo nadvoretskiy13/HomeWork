@@ -2,16 +2,18 @@ package homeworks.homework16.races;
 
 import homeworks.homework16.cars.Car;
 
-public class DriftRace {
-    private final Car c1;
-    private final Car c2;
+import java.util.Comparator;
 
-    public DriftRace(Car c1, Car c2) {
-        this.c1 = c1;
-        this.c2 = c2;
+public class DriftRace extends Race {
+    public DriftRace(java.util.List<Car> participants) {
+        super(participants);
     }
 
-    public void startRace() {
-        System.out.println("Drift race: " + c1.getName() + " vs " + c2.getName());
+    @Override
+    public Car start() {
+        return participants.stream()
+                .max(Comparator.comparingInt(Car::getTopSpeed))
+                .orElse(null);
     }
 }
+

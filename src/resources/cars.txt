@@ -1,3 +1,5 @@
-ShowCar,Toyota Supra,300
-PerformanceCar,Ferrari F8,720
-ShowCar,Mercedes AMG,450
+BMW,M3,420,280
+Audi,RS6,600,305
+Mercedes,AMG GT,580,320
+Toyota, Supra,330,250
+

@@ -1,4 +1,4 @@
-package homeworks.homework15.repositories;
+package homeworks.homework15;
 
 import attestation.exceptions.UserNotFoundException;
 import attestation.exceptions.ValidationException;

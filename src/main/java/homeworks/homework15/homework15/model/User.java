@@ -1,4 +1,4 @@
-package homeworks.homework15.model;
+package homeworks.homework15.homework15.model;
 
 import attestation.exceptions.ValidationException;
 

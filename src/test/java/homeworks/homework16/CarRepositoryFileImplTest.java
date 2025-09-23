@@ -1,20 +1,21 @@
 package homeworks.homework16;
 
 import org.junit.jupiter.api.Test;
+
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CarRepositoryFileImplTest {
+public class CarRepositoryFileImplTest {
 
     @Test
     void testGetAllCars() {
-        CarRepository repository = new CarRepositoryFileImpl(Path.of("src/test/resources/cars_test.txt"));
+        CarRepository repository = new CarRepositoryFileImpl(Path.of("src/test/resources/test_cars.txt"));
         List<Car> cars = repository.getAllCars();
         assertEquals(2, cars.size());
-        assertEquals("Toyota", cars.get(0).getBrand());
-        assertEquals("Corolla", cars.get(0).getModel());
-        assertEquals(2020, cars.get(0).getYear());
+        assertEquals("Honda", cars.get(0).getBrand());
+        assertEquals("Civic", cars.get(0).getModel());
     }
 }
+

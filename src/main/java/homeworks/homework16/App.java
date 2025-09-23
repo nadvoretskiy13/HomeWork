@@ -8,3 +8,4 @@ public class App {
         repository.getAllCars().forEach(System.out::println);
     }
 }
+

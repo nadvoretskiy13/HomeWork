@@ -1,6 +1,6 @@
-package attestation.model;
+package attestation.attestation01.model;
 
-import attestation.exceptions.ValidationException;
+import attestation.attestation01.exceptions.ValidationException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.regex.Pattern;

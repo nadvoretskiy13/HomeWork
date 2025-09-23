@@ -1,8 +1,8 @@
-package attestation.repositories;
+package attestation.attestation01.repositories;
 
-import attestation.exceptions.UserNotFoundException;
-import attestation.exceptions.ValidationException;
-import attestation.model.User;
+import attestation.attestation01.exceptions.UserNotFoundException;
+import attestation.attestation01.exceptions.ValidationException;
+import attestation.attestation01.model.User;
 import org.junit.jupiter.api.*;
 import java.io.File;
 import java.util.UUID;

@@ -1,6 +1,6 @@
 package homeworks.homework15.homework15.repositories;
 
-import attestation.model.User;
+import attestation.attestation01.model.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

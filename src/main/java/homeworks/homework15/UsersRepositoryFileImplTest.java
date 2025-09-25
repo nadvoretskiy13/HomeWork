@@ -1,8 +1,8 @@
 package homeworks.homework15;
 
-import attestation.exceptions.UserNotFoundException;
-import attestation.exceptions.ValidationException;
-import attestation.model.User;
+import attestation.attestation01.exceptions.UserNotFoundException;
+import attestation.attestation01.exceptions.ValidationException;
+import attestation.attestation01.model.User;
 import homeworks.homework15.repositories.UsersRepositoryFileImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

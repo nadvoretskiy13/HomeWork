@@ -1,8 +1,8 @@
 package homeworks.homework15.homework15.repositories;
 
-import attestation.exceptions.FileOperationException;
-import attestation.exceptions.UserNotFoundException;
-import attestation.model.User;
+import attestation.attestation01.exceptions.FileOperationException;
+import attestation.attestation01.exceptions.UserNotFoundException;
+import attestation.attestation01.model.User;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

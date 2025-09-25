@@ -1,6 +1,6 @@
 package homeworks.homework15.homework15.model;
 
-import attestation.exceptions.ValidationException;
+import attestation.attestation01.exceptions.ValidationException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

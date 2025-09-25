@@ -1,11 +1,11 @@
 package attestation.attestation01;
 
 
-import attestation.model.User;
-import attestation.repositories.UsersRepository;
-import attestation.repositories.UsersRepositoryFileImpl;
-import attestation.exceptions.UserNotFoundException;
-import attestation.exceptions.ValidationException;
+import attestation.attestation01.model.User;
+import attestation.attestation01.repositories.UsersRepository;
+import attestation.attestation01.repositories.UsersRepositoryFileImpl;
+import attestation.attestation01.exceptions.UserNotFoundException;
+import attestation.attestation01.exceptions.ValidationException;
 
 import java.util.List;
 import java.util.UUID;

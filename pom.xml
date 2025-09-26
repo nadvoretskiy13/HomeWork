@@ -33,6 +33,15 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.sql</include>
+                </includes>
+            </resource>
+        </resources>
+
         <plugins>
             <!-- Flyway plugin -->
             <plugin>
@@ -46,6 +55,7 @@
                     <locations>
                         <location>classpath:db/migration</location>
                     </locations>
+                    <baselineOnMigrate>true</baselineOnMigrate>
                 </configuration>
             </plugin>
 
